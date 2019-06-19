@@ -16,7 +16,7 @@ const ProductSchema = new Schema({
     require: true
   },
   purchase_date: {
-    type: String,
+    type: Date,
     require: true
   },
   product_price: {

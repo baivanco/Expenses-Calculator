@@ -15,7 +15,7 @@ class Login extends Component {
             <img src={logo} alt="logo" />
           </div>
 
-          <form onSubmit={this.onSubmit} className="login-input">
+          <form onSubmit={this.onSubmit} className="login-input" method="post">
             <input type="email" placeholder="Email" autoFocus={true} />
             <input
               type="password"

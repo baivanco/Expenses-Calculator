@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./NewProduct.module.css";
+import "./NewProduct.css";
+import logo from "../../logo.svg";
 import axios from "axios";
 
 class NewProduct extends Component {
@@ -57,50 +58,60 @@ class NewProduct extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.onSubmit} className="new-product-form">
-          <input
-            style={{ color: "red" }}
-            className="input-product-name"
-            type="text"
-            value={this.state.product_name}
-            onChange={this.onChangeProductName}
-            placeholder="Product Name"
-            required={true}
-          />
-          <br />
+        <div className="product-container">
 
-          <input
-            style={{ color: "red" }}
-            type="text"
-            value={this.state.product_description}
-            onChange={this.onChangeProductDescription}
-            placeholder="Product Description"
-            required={true}
-          />
-          <input
-            style={{ color: "red" }}
-            type="text"
-            value={this.state.product_type}
-            onChange={this.onChangeProductType}
-            placeholder="Product Type"
-          />
-          <input
-            style={{ color: "red" }}
-            type="date"
-            onChange={this.onChangeProductDate}
-            placeholder="Purschase Date"
-            required={true}
-          />
-          <input
-            style={{ color: "red" }}
-            onChange={this.onChangeProductPrice}
-            value={this.state.product_price}
-            type="number"
-            placeholder="Product Price"
-            required={true}
-          />
-          <button type="submit">Add Product</button>
-        </form>
+          <form onSubmit={this.onSubmit} className="product-input" method="post">
+            <input
+
+              className="input-product-name"
+              type="text"
+              value={this.state.product_name}
+              onChange={this.onChangeProductName}
+              placeholder="Product Name"
+              required={true}
+            />
+            <br />
+
+            <input
+
+              type="text"
+              value={this.state.product_description}
+              onChange={this.onChangeProductDescription}
+              placeholder="Product Description"
+              required={true}
+            />
+            <br />
+            <input
+
+              type="text"
+              value={this.state.product_type}
+              onChange={this.onChangeProductType}
+              placeholder="Product Type"
+            />
+            <br />
+            <input
+
+              type="date"
+              onChange={this.onChangeProductDate}
+              placeholder="Purschase Date"
+              required={true}
+            />
+            <br />
+            <input
+
+              onChange={this.onChangeProductPrice}
+              value={this.state.product_price}
+              type="number"
+              placeholder="Product Price"
+              required={true}
+            />
+            <br />
+            <button type="submit">Add Product</button>
+          </form>
+          <div className="logo">
+            <img src={logo} alt="logo" />
+          </div>
+        </div>
       </div>
     );
   }

@@ -1,17 +1,25 @@
-.fade-enter {
-  opacity: 0.01;
+.container-products-list{
+  position: absolute;
+  font-family: Akrobat-regular;
+  
 }
 
-.fade-enter {
-  opacity: 1;
-  transition: opacity 3000ms ease-in;
+.nav-bar {
+  height: 28px;
+  width: 100%;
+  margin-top:50px;
+  background: #232323;
+  text-align: center;
+  font-family: Akrobat-regular;
+ 
 }
 
-.fade-exit {
-  opacity: 1;
-}
 
-.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 3000ms ease-out;
+.nav-bar a, th, td, tr,td a{
+  font-family: Akrobat-regular;
+
 }
+/* 
+.option-links {
+  font-family: Arkobat-regular;
+} */
