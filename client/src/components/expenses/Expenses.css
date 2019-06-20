@@ -11,7 +11,7 @@
   border-color: #000000;
   border-color: rgba(0, 0, 0, 1);
   border-width: 1px;
-  opacity: 0.9;
+  opacity: 0.8;
   position: absolute;
   z-index: 1;
   left: 0px;
@@ -41,29 +41,30 @@
   font-size: 18px;
 }
 
-.products-table {
-  margin-top: 223px;
+.expenses-table {
+  margin-top: 48px;
   font-size: 28px;
 }
 
-.new-product-btn {
-  background: #009245;
-  background: rgba(0, 146, 69, 1);
+.total-view {
+  background: #c1272d;
+  background: rgba(193, 39, 45, 1);
   border-style: Solid;
-  border-color: #006837;
-  border-color: rgba(0, 104, 55, 1);
+  border-color: #8c1619;
+  border-color: rgba(140, 22, 25, 1);
   border-width: 1px;
   position: absolute;
   position: fixed;
-  left: 1746px;
+  left: 1635px;
   top: 160px;
-  width: 169px;
+  width: 257px;
   height: 48px;
   border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
   font-size: 25px;
   color: #fff;
+  text-align: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }
 
 table {
@@ -90,4 +91,47 @@ tbody tr:nth-child(odd) {
 
 tbody tr td {
   height: 80px;
+}
+
+.exp-filters {
+  margin-left: 107px;
+  margin-top: 236px;
+}
+.exp-filters button {
+  background: #576b8c;
+  background: rgba(87, 107, 140, 1);
+  opacity: 0.8;
+  width: 129px;
+  height: 48px;
+  border-radius: 9px;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  color: #fff;
+  font-size: 22px;
+  margin: 8px;
+  filter: alpha(opacity=80) progid: DXImageTransform.Microsoft.Alpha(opacity=80);
+}
+
+.exp-filters label {
+  font-size: 22px;
+  margin-left: 30px;
+}
+
+.exp-filters select {
+  background: #ffffff;
+  background: rgba(255, 255, 255, 1);
+  border-style: Solid;
+  border-color: #000000;
+  border-color: rgba(0, 0, 0, 1);
+  border-width: 1px;
+  opacity: 0.8;
+  width: 130px;
+  height: 33px;
+  border-radius: 9px;
+  font-size: 18px;
+  padding: 5px;
+  margin-left: 6px;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  filter: alpha(opacity=80) progid: DXImageTransform.Microsoft.Alpha(opacity=80);
 }

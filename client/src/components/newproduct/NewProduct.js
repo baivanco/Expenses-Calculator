@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./NewProduct.css";
+import userimg from "./userimg.svg";
 import logo from "../../logo.svg";
 import axios from "axios";
 
@@ -58,11 +59,23 @@ class NewProduct extends Component {
   render() {
     return (
       <div>
-        <div className="product-container">
-
-          <form onSubmit={this.onSubmit} className="product-input" method="post">
+        <div className="header-add-product">
+          <nav className="nav-add-product">
+            <span>Products</span>
+            <span>Expenses</span>
+            <span className="user-add-product">
+              <img src={userimg} alt="userimg" /> Pero Perovski
+            </span>
+          </nav>
+          <h2>Add New Product</h2>
+        </div>
+        <div className="new-product-container">
+          <form
+            onSubmit={this.onSubmit}
+            className="product-input"
+            method="post"
+          >
             <input
-
               className="input-product-name"
               type="text"
               value={this.state.product_name}
@@ -73,7 +86,6 @@ class NewProduct extends Component {
             <br />
 
             <input
-
               type="text"
               value={this.state.product_description}
               onChange={this.onChangeProductDescription}
@@ -82,7 +94,6 @@ class NewProduct extends Component {
             />
             <br />
             <input
-
               type="text"
               value={this.state.product_type}
               onChange={this.onChangeProductType}
@@ -90,7 +101,6 @@ class NewProduct extends Component {
             />
             <br />
             <input
-
               type="date"
               onChange={this.onChangeProductDate}
               placeholder="Purschase Date"
@@ -98,7 +108,6 @@ class NewProduct extends Component {
             />
             <br />
             <input
-
               onChange={this.onChangeProductPrice}
               value={this.state.product_price}
               type="number"
@@ -108,7 +117,7 @@ class NewProduct extends Component {
             <br />
             <button type="submit">Add Product</button>
           </form>
-          <div className="logo">
+          <div className="logo-n">
             <img src={logo} alt="logo" />
           </div>
         </div>

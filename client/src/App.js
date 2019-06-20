@@ -5,7 +5,8 @@ import Register from "./components/register/Register";
 import Products from "./components/products/Products";
 import { Route, Switch, Link } from "react-router-dom";
 import NewProduct from "./components/newproduct/NewProduct";
-import UpdateProduct from './components/updateProduct/UpdateProduct'
+import UpdateProduct from "./components/updateProduct/UpdateProduct";
+import Expenses from "./components/expenses/Expenses";
 
 class App extends Component {
   render() {
@@ -22,10 +23,11 @@ class App extends Component {
           <span className="copyright">
             © 2019 All rights reserved. Designed by Ivan Tasevski
           </span> */}
-            <p style={{ color: 'red' }}>teest</p>
-            <Products />
-            {/* <NewProduct /> */}
+
+            {/* <Products /> */}
+            <NewProduct />
             {/* <UpdateProduct /> */}
+            {/* <Expenses /> */}
           </div>
         </div>
       </div>
