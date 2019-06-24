@@ -138,6 +138,7 @@
   position: absolute;
   width: 100%;
   top: 3%;
+  z-index: 1;
 }
 
 .header-update-product h2 {
@@ -165,3 +166,4 @@
 .user-update-product img {
   width: 60px;
 }
+

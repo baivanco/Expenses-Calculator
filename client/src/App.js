@@ -15,9 +15,11 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path="/" component={Login} />
+          <Route path="/register" component={Register} />
           <Route path="/products" component={Products} />
           <Route path="/expenses" component={Expenses} />
           <Route path="/new_product" component={NewProduct} />
+          <Route path='/update_product' component={UpdateProduct} />
           <Route component={NoMatch} />
         </Switch>
         <div>

@@ -42,6 +42,16 @@ class Products extends Component {
       .then(res => console.log(res.data));
   };
 
+  filterProdName = () => {
+
+    var filterNames = [...this.state.products].sort((a, b) => (a.product_name.toLowerCase() > b.product_name.toLowerCase()) ? 1 : -1)
+    // console.log(filterNames)
+    this.setState({ products: filterNames })
+    axios
+      .get("http://127.0.0.1:5000/api/products/", filterNames)
+      .then(res => console.log(res.data));
+  }
+
   render() {
     return (
       <div className="container-products-list">
@@ -59,7 +69,18 @@ class Products extends Component {
               >
                 Expenses
               </span>
+
             </Link>
+            {this.state.products.map(product => (
+              <div className="filter" key={product._id}>Filter By:
+              <select className="filter-button"><option > Choose</option></select>
+                <div className="filter-list">
+                  <Link style={{ color: "#fff" }} onClick={() => this.filterProdName()}>Name</Link> <br />
+                  <Link style={{ color: "#fff" }}>Lowest Price</Link> <br />
+                  <Link style={{ color: "#fff" }}>Latest Purchase</Link>
+                </div>
+              </div>
+            ))}
           </div>
           <span className="user-products">
             <img src={userimg} alt="userimg" /> Pero Perovski
@@ -136,7 +157,7 @@ class Products extends Component {
             ))}
           </tbody>
         </table>
-      </div>
+      </div >
     );
   }
 }
