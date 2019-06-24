@@ -3,6 +3,9 @@ import "./NewProduct.css";
 import userimg from "./userimg.svg";
 import logo from "../../logo.svg";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import Products from "../products/Products";
+import Expenses from "../expenses/Expenses";
 
 class NewProduct extends Component {
   constructor(props) {
@@ -61,8 +64,13 @@ class NewProduct extends Component {
       <div>
         <div className="header-add-product">
           <nav className="nav-add-product">
-            <span>Products</span>
-            <span>Expenses</span>
+            <Link to="/products" component={Products}>
+              <span>Products</span>
+            </Link>
+            <Link to="/expenses">
+              <span>Expenses</span>
+            </Link>
+
             <span className="user-add-product">
               <img src={userimg} alt="userimg" /> Pero Perovski
             </span>
@@ -76,6 +84,7 @@ class NewProduct extends Component {
             method="post"
           >
             <input
+              autoFocus={true}
               className="input-product-name"
               type="text"
               value={this.state.product_name}
@@ -98,6 +107,7 @@ class NewProduct extends Component {
               value={this.state.product_type}
               onChange={this.onChangeProductType}
               placeholder="Product Type"
+              required={true}
             />
             <br />
             <input
@@ -115,6 +125,7 @@ class NewProduct extends Component {
               required={true}
             />
             <br />
+
             <button type="submit">Add Product</button>
           </form>
           <div className="logo-n">

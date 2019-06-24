@@ -1,6 +1,6 @@
 .about {
   position: absolute;
-  font-size: 16px;
+  font-size: 19px;
   right: 3%;
   top: 1%;
   text-decoration: underline;
@@ -16,4 +16,24 @@
   text-decoration: underline;
   cursor: pointer;
   color: #37415c;
+}
+
+.popover {
+  font-size: 20px;
+}
+
+.popover-body {
+  font-size: 18px;
+  text-align: justify;
+}
+
+@media (max-width: 600px) {
+  .popover-header {
+    font-size: 20px;
+  }
+
+  .popover-body {
+    font-size: 12px;
+    text-align: justify;
+  }
 }

@@ -19,10 +19,10 @@ class About extends Component {
           placement="bottom"
           target="PopoverLegacy"
         >
-          <PopoverHeader style={{ fontSize: "20px" }}>
+          <PopoverHeader className="popover-header">
             Expenses Calculator
           </PopoverHeader>
-          <PopoverBody style={{ fontSize: "18px", textAlign: "justify" }}>
+          <PopoverBody className="popover-body">
             Expenses Calculator is a application made as a final project from my
             7 months course at Semos JS Academy 2019. <br /> This application
             provides you the option to add products that you purchase and

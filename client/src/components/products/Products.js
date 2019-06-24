@@ -4,14 +4,24 @@ import logo from "../../logo.svg";
 import edit from "./edit-icon.svg";
 import del from "./del-icon.svg";
 import axios from "axios";
-import Product from "../product/Product";
+import { Link } from "react-router-dom";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+
 import userimg from "./userimg.svg";
+import NewProduct from "../newproduct/NewProduct";
+import Expenses from "../expenses/Expenses";
 
 class Products extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [] };
+    this.state = { products: [], modal: false };
   }
+
+  toggle = () => {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+  };
 
   componentDidMount() {
     axios("http://127.0.0.1:5000/api/products")
@@ -20,6 +30,18 @@ class Products extends Component {
       })
       .catch(err => console.log(err));
   }
+
+  deleteProduct = id => {
+    const delProd = this.state.products.filter(product => product._id !== id);
+    this.setState({
+      products: delProd
+    });
+
+    axios
+      .delete("http://127.0.0.1:5000/api/products/" + id, delProd)
+      .then(res => console.log(res.data));
+  };
+
   render() {
     return (
       <div className="container-products-list">
@@ -28,13 +50,24 @@ class Products extends Component {
           <div className="nav-bar-links">
             <span>Products</span>
             <span style={{ margin: 10 }}>|</span>
-            <span href="#">Expenses</span>
+            <Link to="/expenses">
+              <span
+                style={{
+                  color: " #445570",
+                  textDecoration: "underline"
+                }}
+              >
+                Expenses
+              </span>
+            </Link>
           </div>
           <span className="user-products">
             <img src={userimg} alt="userimg" /> Pero Perovski
           </span>
         </nav>
-        <button className="new-product-btn">new product</button>
+        <Link to="/new_product">
+          <button className="new-product-btn">new product</button>
+        </Link>
 
         <table className="products-table">
           <thead>
@@ -50,7 +83,7 @@ class Products extends Component {
           <div className="table-line-border" />
           <tbody>
             {this.state.products.map(product => (
-              <tr>
+              <tr key={product._id}>
                 <td>{product.product_name}</td>
                 <td>{product.product_type}</td>
                 <td>{product.product_description}</td>
@@ -60,13 +93,44 @@ class Products extends Component {
                   <img
                     src={edit}
                     style={{ width: 30, marginRight: 5 }}
-                    className="option-links"
+                    className="option-links edit"
                   />
                   <img
+                    onClick={this.toggle}
                     src={del}
                     style={{ width: 30 }}
-                    className="option-links"
+                    className="option-links del"
                   />
+                  <Modal
+                    isOpen={this.state.modal}
+                    toggle={this.toggle}
+                    className={this.props.className}
+                  >
+                    <ModalHeader
+                      style={{ backgroundColor: "#44557090", color: "#fff" }}
+                      toggle={this.toggle}
+                    >
+                      Delete Product
+                    </ModalHeader>
+                    <ModalBody style={{ fontSize: 22 }}>
+                      You are about to delete this product. Are you sure you
+                      wish to continue ?
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button
+                        style={{ backgroundColor: "#C1272D" }}
+                        onClick={() => {
+                          this.deleteProduct(product._id);
+                          this.toggle();
+                        }}
+                      >
+                        Delete
+                      </Button>{" "}
+                      <Button color="secondary" onClick={this.toggle}>
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </Modal>
                 </td>
               </tr>
             ))}

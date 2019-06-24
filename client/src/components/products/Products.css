@@ -26,14 +26,16 @@
 }
 
 .nav-bar-products img {
-  z-index: 3;
+  z-index: 1;
   width: 81px;
   height: 65px;
   margin-left: 23px;
 }
 
 .nav-bar-links {
-  font-size: 33px;
+  flex-grow: 1;
+  font-size: 22px;
+  margin-left: 39px;
 }
 
 .user-products {
@@ -62,13 +64,34 @@
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  font-size: 25px;
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+}
+.new-product-btn:hover {
+  background: #009245;
+  background: rgb(0, 146, 69, 0.8);
+  border-style: Solid;
+  border-color: #006837;
+  border-color: rgba(0, 104, 55, 1);
+  border-width: 1px;
+  position: fixed;
+  right: 5%;
+  left: 1746px;
+  top: 160px;
+  width: 169px;
+  height: 48px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  font-size: 22px;
+  text-align: center;
   color: #fff;
 }
 
 table {
   width: 80vw;
-  margin: auto 50px;
+  margin: auto 128px;
 }
 .table-line-border {
   width: 80vw;
@@ -81,7 +104,7 @@ table {
 }
 
 tbody tr:nth-child(even) {
-  background: rgba(87, 107, 140, 0.5);
+  background: #576b8c80;
 }
 
 tbody tr:nth-child(odd) {

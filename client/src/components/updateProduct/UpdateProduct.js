@@ -16,11 +16,13 @@ class UpdateProduct extends Component {
       product_price: ""
     };
   }
+
   onChangeProductName = e => {
     this.setState({ product_name: e.target.value });
   };
+
   onChangeProductDescription = e => {
-    this.setState({ product_description: e.target.value });
+    this.setState({ product_description: e.traget.value });
   };
   onChangeProductType = e => {
     this.setState({ product_type: e.target.value });
@@ -35,7 +37,7 @@ class UpdateProduct extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const NewProduct = {
+    const UpdatedProduct = {
       product_name: this.state.product_name,
       product_description: this.state.product_description,
       product_type: this.state.product_type,
@@ -44,16 +46,8 @@ class UpdateProduct extends Component {
     };
 
     axios
-      .post("http://127.0.0.1:5000/api/products", NewProduct)
+      .post("http://127.0.0.1:5000/api/products", UpdatedProduct)
       .then(res => console.log(res.data));
-
-    this.setState({
-      product_name: "",
-      product_description: "",
-      product_type: "",
-      purchase_date: "",
-      product_price: ""
-    });
   };
 
   render() {

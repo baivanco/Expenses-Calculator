@@ -7,11 +7,19 @@ import { Route, Switch, Link } from "react-router-dom";
 import NewProduct from "./components/newproduct/NewProduct";
 import UpdateProduct from "./components/updateProduct/UpdateProduct";
 import Expenses from "./components/expenses/Expenses";
+import NoMatch from "./components/noMatch/NoMatch";
 
 class App extends Component {
   render() {
     return (
       <div>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route path="/products" component={Products} />
+          <Route path="/expenses" component={Expenses} />
+          <Route path="/new_product" component={NewProduct} />
+          <Route component={NoMatch} />
+        </Switch>
         <div>
           <div className="showcase">
             {/* <Login /> */}
@@ -25,7 +33,7 @@ class App extends Component {
           </span> */}
 
             {/* <Products /> */}
-            <NewProduct />
+            {/* <NewProduct /> */}
             {/* <UpdateProduct /> */}
             {/* <Expenses /> */}
           </div>

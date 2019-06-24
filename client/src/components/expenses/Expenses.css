@@ -33,7 +33,7 @@
 }
 
 .nav-bar-links {
-  font-size: 33px;
+  font-size: 22px;
 }
 
 .user-products {
@@ -69,7 +69,7 @@
 
 table {
   width: 80vw;
-  margin: auto 50px;
+  margin: auto 128px;
 }
 .table-line-border {
   width: 80vw;
@@ -134,4 +134,12 @@ tbody tr td {
   -moz-border-radius: 9px;
   -webkit-border-radius: 9px;
   filter: alpha(opacity=80) progid: DXImageTransform.Microsoft.Alpha(opacity=80);
+}
+
+.edit:hover {
+  cursor: pointer;
+}
+
+.del:hover {
+  cursor: pointer;
 }

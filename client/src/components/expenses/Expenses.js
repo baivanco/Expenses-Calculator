@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./Expenses.css";
+import { Link } from "react-router-dom";
+import Products from "../products/Products";
 import logo from "../../logo.svg";
 import edit from "./edit-icon.svg";
 import del from "./del-icon.svg";
@@ -26,9 +28,11 @@ class Expenses extends Component {
         <nav className="nav-bar-products">
           <img src={logo} alt="logo-img" style={{ width: "70px" }} />
           <div className="nav-bar-links">
-            <span>Products</span>
+            <Link style={{ color: " #445570" }} to="/products">
+              <span style={{ textDecoration: "underline" }}>Products</span>
+            </Link>
             <span style={{ margin: 10 }}>|</span>
-            <span href="#">Expenses</span>
+            <span>Expenses</span>
           </div>
           <span className="user-products">
             <img src={userimg} alt="userimg" /> Pero Perovski
@@ -72,32 +76,17 @@ class Expenses extends Component {
               <th>Product Description</th>
               <th>Purchase Date</th>
               <th>Product Price</th>
-              <th>Options</th>
             </tr>
           </thead>
           <div className="table-line-border" />
           <tbody>
             {this.state.products.map(product => (
-              <tr>
+              <tr key={product._id}>
                 <td>{product.product_name}</td>
                 <td>{product.product_type}</td>
                 <td>{product.product_description}</td>
                 <td>{product.purchase_date}</td>
                 <td>{product.product_price}</td>
-                <td>
-                  <img
-                    src={edit}
-                    style={{ width: 30, marginRight: 5 }}
-                    className="option-links"
-                    alt="edit-icon"
-                  />
-                  <img
-                    src={del}
-                    style={{ width: 30 }}
-                    className="option-links"
-                    alt="delete-icon"
-                  />
-                </td>
               </tr>
             ))}
           </tbody>
