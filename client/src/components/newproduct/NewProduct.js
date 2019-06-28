@@ -19,6 +19,8 @@ class NewProduct extends Component {
       product_price: ""
     };
   }
+
+
   onChangeProductName = e => {
     this.setState({ product_name: e.target.value });
   };
@@ -29,6 +31,7 @@ class NewProduct extends Component {
     this.setState({ product_type: e.target.value });
   };
   onChangePurchaseDate = e => {
+    console.log(e)
     this.setState({ purchase_date: e.target.value });
   };
   onChangeProductPrice = e => {
@@ -37,6 +40,8 @@ class NewProduct extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+
+    console.log("THIS", this);
 
     const NewProduct = {
       product_name: this.state.product_name,
@@ -48,15 +53,20 @@ class NewProduct extends Component {
 
     axios
       .post("http://127.0.0.1:5000/api/products", NewProduct)
-      .then(res => console.log(res.data));
+      .then(res => {
+        if (res.statusText === "OK") {
+          console.log("NEW PRODUCT", NewProduct)
+          this.setState({
+            product_name: "",
+            product_description: "",
+            product_type: "",
+            purchase_date: "",
+            product_price: ""
+          });
+          this.props.history.push("/products");
+        }
+      });
 
-    this.setState({
-      product_name: "",
-      product_description: "",
-      product_type: "",
-      purchase_date: "",
-      product_price: ""
-    });
   };
 
   render() {
@@ -112,9 +122,10 @@ class NewProduct extends Component {
             <br />
             <input
               type="date"
-              onChange={this.onChangeProductDate}
+              onChange={this.onChangePurchaseDate}
               placeholder="Purschase Date"
               required={true}
+              value={this.state.purchase_date}
             />
             <br />
             <input

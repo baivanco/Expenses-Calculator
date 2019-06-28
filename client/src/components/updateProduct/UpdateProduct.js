@@ -8,37 +8,53 @@ import axios from "axios";
 class UpdateProduct extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      product_name: "",
+      product_description: "",
+      product_type: "",
+      purchase_date: "",
+      product_price: ""
+    };
   }
   componentDidMount() {
-    axios
-      .get("http://127.0.0.1:5000/api/products" + this.props.match.params.id)
-      .then(response => {
-        this.setState({
-          product_name: response.data.product_name,
-          product_description: response.data.product_description,
-          product_type: response.data.product_type,
-          product_date: response.data.product_date,
-          product_price: response.data.product_price
-        });
-      });
+    // axios
+    //   .get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
+    //   .then(response => {
+    //     this.setState({
+    //       product_name: response.data.product_name,
+    //       product_description: response.data.product_description,
+    //       product_type: response.data.product_type,
+    //       product_date: response.data.product_date,
+    //       product_price: response.data.product_price
+    //     });
+    //   });
+    this.FetchProductById();
   }
-  onChangeProductName = e => {
-    this.setState({ product_name: e.target.value });
-  };
 
-  onChangeProductDescription = e => {
-    this.setState({ product_description: e.target.value });
-  };
-  onChangeProductType = e => {
-    this.setState({ product_type: e.target.value });
-  };
-  onChangePurchaseDate = e => {
-    this.setState({ purchase_date: e.target.value });
-  };
-  onChangeProductPrice = e => {
-    this.setState({ product_price: e.target.value });
-  };
+  FetchProductById = () => {
+    let options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+
+    axios.get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
+      .then(res => {
+        this.setState({
+          product_name: res.data.product_name,
+          product_description: res.data.product_description,
+          product_type: res.data.product_type,
+          purchase_date: new Date(res.data.purchase_date).toISOString().slice(0, 10),
+          product_price: res.data.product_price
+        }, () => {
+          console.log(this.state);
+        });
+      })
+      .catch(err => console.error(err));
+  }
+
+  InputChangeHandler = (e) => {
+    console.log("CHANGE => ", e.target.value);
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
 
   onSubmit = e => {
     e.preventDefault();
@@ -52,11 +68,12 @@ class UpdateProduct extends Component {
     };
 
     axios
-      .post(
-        "http://127.0.0.1:5000/api/products" + this.props.match.params.id,
+      .put(
+        "http://127.0.0.1:5000/api/products/" + this.props.match.params.id,
         UpdatedProduct
       )
-      .then(res => console.log(res.data));
+      .then(res => console.log(res.data))
+      .catch(err => console.error(err));
   };
 
   render() {
@@ -87,38 +104,44 @@ class UpdateProduct extends Component {
                 className="input-product-name"
                 type="text"
                 value={this.state.product_name}
-                onChange={this.onChangeProductName}
+                onChange={this.InputChangeHandler}
                 placeholder="Product Name"
                 required={true}
+                name="product_name"
               />
               <br />
 
               <input
                 type="text"
                 value={this.state.product_description}
-                onChange={this.onChangeProductDescription}
+                onChange={this.InputChangeHandler}
                 required={true}
+                name="product_description"
               />
               <br />
               <input
                 type="text"
                 value={this.state.product_type}
-                onChange={this.onChangeProductType}
+                onChange={this.InputChangeHandler}
                 placeholder="Product Type"
+                name="product_type"
               />
               <br />
               <input
                 type="date"
-                onChange={this.onChangeProductDate}
+                onChange={this.InputChangeHandler}
+                value={this.state.purchase_date}
                 placeholder="Purschase Date"
+                name="purchase_date"
                 required={true}
               />
               <br />
               <input
-                onChange={this.onChangeProductPrice}
+                onChange={this.InputChangeHandler}
                 value={this.state.product_price}
                 type="number"
                 placeholder="Product Price"
+                name="product_price"
                 required={true}
               />
               <br />

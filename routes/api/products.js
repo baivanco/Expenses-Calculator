@@ -10,6 +10,10 @@ router.get("/", (req, res) => {
   Product.find().then(products => res.json(products));
 });
 
+router.get("/:id", (req, res) => {
+  Product.findById(req.params.id).then(product => res.json(product));
+});
+
 //@route  POST api/products
 //@desc   Create New Product
 router.post("/", (req, res) => {
@@ -17,7 +21,7 @@ router.post("/", (req, res) => {
     product_name: req.body.product_name,
     product_type: req.body.product_type,
     product_description: req.body.product_description,
-    purchase_date: req.body.purschase_date,
+    purchase_date: req.body.purchase_date,
     product_price: req.body.product_price
   });
   newProduct.save().then(product => res.json(product));
@@ -28,20 +32,20 @@ router.post("/", (req, res) => {
 router.delete("/:id", (req, res) => {
   Product.findById(req.params.id)
     .then(product => product.remove().then(() => res.json({ deleted: true })))
-    .catch(err => res.status(404).json({ delete: false }));
+    .catch(err => { res.status(404).json({ delete: false }) });
 });
 
 //@route  PUT api/products
 //@desc   Update Product
 router.put("/:id", (req, res) => {
-  Product.findById(req.params.id, function(err, product) {
+  Product.findById(req.params.id, function (err, product) {
     if (!product) {
       res.status(404).send("product not found");
     } else {
       product.product_name = req.body.product_name;
       product.product_description = req.body.product_description;
       product.product_type = req.body.product_type;
-      product.purchase_date = req.body.purschase_date;
+      product.purchase_date = req.body.purchase_date;
       product.product_price = req.body.product_price;
     }
     product

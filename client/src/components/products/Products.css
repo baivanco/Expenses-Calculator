@@ -55,9 +55,9 @@
   border-color: #006837;
   border-color: rgba(0, 104, 55, 1);
   border-width: 1px;
-  position: absolute;
+  
   position: fixed;
-  left: 1746px;
+  left: 1906px;
   top: 160px;
   width: 169px;
   height: 48px;
@@ -70,14 +70,13 @@
 }
 .new-product-btn:hover {
   background: #009245;
-  background: rgb(0, 146, 69, 0.8);
+  background: rgba(2, 105, 50, 0.8);
   border-style: Solid;
   border-color: #006837;
   border-color: rgba(0, 104, 55, 1);
   border-width: 1px;
   position: fixed;
-  right: 5%;
-  left: 1746px;
+  left: 1906px;
   top: 160px;
   width: 169px;
   height: 48px;

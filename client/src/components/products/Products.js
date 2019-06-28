@@ -24,12 +24,17 @@ import Expenses from "../expenses/Expenses";
 class Products extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [], modal: false };
+    this.state = {
+      products: [],
+      modal: false,
+      selectedProductID: ""
+    };
   }
 
-  toggle = () => {
+  toggle = (productId) => {
     this.setState(prevState => ({
-      modal: !prevState.modal
+      modal: !prevState.modal,
+      selectedProductID: productId
     }));
   };
 
@@ -41,8 +46,8 @@ class Products extends Component {
       .catch(err => console.log(err));
   }
 
-  deleteProduct = id => {
-    const delProd = this.state.products.filter(product => product._id !== id);
+  deleteProduct = (id) => {
+    const delProd = this.state.products.filter(product => this.state.selectedProductID !== product._id);
     this.setState({
       products: delProd
     });
@@ -106,6 +111,9 @@ class Products extends Component {
                     <DropdownItem>Date</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
+                <Link to="/new_product">
+                  <button className="new-product-btn">new product</button>
+                </Link>
               </div>
             ))}
           </div>
@@ -113,9 +121,7 @@ class Products extends Component {
             <img src={userimg} alt="userimg" /> Pero Perovski
           </span>
         </nav>
-        <Link to="/new_product">
-          <button className="new-product-btn">new product</button>
-        </Link>
+
 
         <table className="products-table">
           <thead>
@@ -135,7 +141,7 @@ class Products extends Component {
                 <td>{product.product_name}</td>
                 <td>{product.product_type}</td>
                 <td>{product.product_description}</td>
-                <td>{product.purchase_date}</td>
+                <td>{new Date(product.purchase_date).toLocaleDateString()}</td>
                 <td>{product.product_price}</td>
                 <td>
                   <Link to={"/update_product/" + product._id}>
@@ -146,46 +152,46 @@ class Products extends Component {
                     />
                   </Link>
                   <img
-                    onClick={this.toggle}
+                    onClick={() => this.toggle(product._id)}
                     src={del}
                     style={{ width: 25 }}
                     className="option-links del"
                   />
-                  <Modal
-                    isOpen={this.state.modal}
-                    toggle={this.toggle}
-                    className={this.props.className}
-                  >
-                    <ModalHeader
-                      style={{ backgroundColor: "#44557090", color: "#fff" }}
-                      toggle={this.toggle}
-                    >
-                      Delete Product
-                    </ModalHeader>
-                    <ModalBody style={{ fontSize: 22 }}>
-                      You are about to delete this product. Are you sure you
-                      wish to continue ?
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button
-                        style={{ backgroundColor: "#C1272D" }}
-                        onClick={() => {
-                          this.deleteProduct(product._id);
-                          this.toggle();
-                        }}
-                      >
-                        Delete
-                      </Button>{" "}
-                      <Button color="secondary" onClick={this.toggle}>
-                        Cancel
-                      </Button>
-                    </ModalFooter>
-                  </Modal>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <Modal
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          className={this.props.className}
+        >
+          <ModalHeader
+            style={{ backgroundColor: "#44557090", color: "#fff" }}
+            toggle={this.toggle}
+          >
+            Delete Product
+                    </ModalHeader>
+          <ModalBody style={{ fontSize: 22 }}>
+            You are about to delete this product. Are you sure you
+            wish to continue ?
+                    </ModalBody>
+          <ModalFooter>
+            <Button
+              style={{ backgroundColor: "#C1272D" }}
+              onClick={() => {
+                this.deleteProduct(this.state.selectedProductID);
+                this.toggle();
+              }}
+            >
+              Delete
+                      </Button>{" "}
+            <Button color="secondary" onClick={this.toggle}>
+              Cancel
+                      </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }
