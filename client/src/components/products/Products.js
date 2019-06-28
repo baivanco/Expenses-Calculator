@@ -5,7 +5,17 @@ import edit from "./edit-icon.svg";
 import del from "./del-icon.svg";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from "reactstrap";
 
 import userimg from "./userimg.svg";
 import NewProduct from "../newproduct/NewProduct";
@@ -43,14 +53,23 @@ class Products extends Component {
   };
 
   filterProdName = () => {
-
-    var filterNames = [...this.state.products].sort((a, b) => (a.product_name.toLowerCase() > b.product_name.toLowerCase()) ? 1 : -1)
-    // console.log(filterNames)
-    this.setState({ products: filterNames })
+    var filterNames = [...this.state.products].sort((a, b) =>
+      a.product_name.toLowerCase() > b.product_name.toLowerCase() ? 1 : -1
+    );
+    this.setState({ products: filterNames });
     axios
       .get("http://127.0.0.1:5000/api/products/", filterNames)
       .then(res => console.log(res.data));
-  }
+  };
+  filterProdPrice = () => {
+    var filterNames = [...this.state.products].sort((a, b) =>
+      a.product_price > b.product_price ? 1 : -1
+    );
+    this.setState({ products: filterNames });
+    axios
+      .get("http://127.0.0.1:5000/api/products/", filterNames)
+      .then(res => console.log(res.data));
+  };
 
   render() {
     return (
@@ -69,16 +88,24 @@ class Products extends Component {
               >
                 Expenses
               </span>
-
             </Link>
             {this.state.products.map(product => (
-              <div className="filter" key={product._id}>Filter By:
-              <select className="filter-button"><option > Choose</option></select>
-                <div className="filter-list">
-                  <Link style={{ color: "#fff" }} onClick={() => this.filterProdName()}>Name</Link> <br />
-                  <Link style={{ color: "#fff" }}>Lowest Price</Link> <br />
-                  <Link style={{ color: "#fff" }}>Latest Purchase</Link>
-                </div>
+              <div className="filter" key={product._id}>
+                Filter By:
+                <UncontrolledDropdown>
+                  <DropdownToggle caret>Choose</DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem onClick={() => this.filterProdName()}>
+                      Name
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem onClick={() => this.filterProdPrice()}>
+                      Price
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    <DropdownItem>Date</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
               </div>
             ))}
           </div>
@@ -111,15 +138,17 @@ class Products extends Component {
                 <td>{product.purchase_date}</td>
                 <td>{product.product_price}</td>
                 <td>
-                  <img
-                    src={edit}
-                    style={{ width: 30, marginRight: 5 }}
-                    className="option-links edit"
-                  />
+                  <Link to={"/update_product/" + product._id}>
+                    <img
+                      src={edit}
+                      style={{ width: 25, marginRight: 5 }}
+                      className="option-links edit"
+                    />
+                  </Link>
                   <img
                     onClick={this.toggle}
                     src={del}
-                    style={{ width: 30 }}
+                    style={{ width: 25 }}
                     className="option-links del"
                   />
                   <Modal
@@ -157,7 +186,7 @@ class Products extends Component {
             ))}
           </tbody>
         </table>
-      </div >
+      </div>
     );
   }
 }

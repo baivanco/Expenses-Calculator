@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Abel&display=swap");
 .new-product-container {
   position: absolute;
   width: 1153px;
@@ -70,6 +71,7 @@
 }
 
 .product-input input {
+  font-family: "Abel", sans-serif;
   display: block;
   margin: 0 auto;
   margin-left: 50px;
@@ -86,7 +88,7 @@
 }
 
 .product-input input::placeholder {
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 21px;
   color: #1b1b1b;
   opacity: 1;
@@ -94,14 +96,14 @@
 }
 .product-input [type="email"],
 [type="text"] {
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 21px;
   color: #1b1b1b;
 }
 
 .product-input button {
   display: block;
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 33px;
   background: #484c5d;
   background: #2b2a2a;
@@ -119,7 +121,7 @@
 }
 .product-input button:hover {
   display: block;
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 33px;
   background: #ffffff;
   background: rgb(66, 66, 66);

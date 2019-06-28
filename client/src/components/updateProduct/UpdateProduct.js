@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./UpdateProduct.css";
 import userimg from "./userimg.svg";
 import logo from "../../logo.svg";
@@ -7,22 +8,27 @@ import axios from "axios";
 class UpdateProduct extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      product_name: "",
-      product_description: "",
-      product_type: "",
-      purchase_date: "",
-      product_price: ""
-    };
+    this.state = {};
   }
-
+  componentDidMount() {
+    axios
+      .get("http://127.0.0.1:5000/api/products" + this.props.match.params.id)
+      .then(response => {
+        this.setState({
+          product_name: response.data.product_name,
+          product_description: response.data.product_description,
+          product_type: response.data.product_type,
+          product_date: response.data.product_date,
+          product_price: response.data.product_price
+        });
+      });
+  }
   onChangeProductName = e => {
     this.setState({ product_name: e.target.value });
   };
 
   onChangeProductDescription = e => {
-    this.setState({ product_description: e.traget.value });
+    this.setState({ product_description: e.target.value });
   };
   onChangeProductType = e => {
     this.setState({ product_type: e.target.value });
@@ -46,7 +52,10 @@ class UpdateProduct extends Component {
     };
 
     axios
-      .post("http://127.0.0.1:5000/api/products", UpdatedProduct)
+      .post(
+        "http://127.0.0.1:5000/api/products" + this.props.match.params.id,
+        UpdatedProduct
+      )
       .then(res => console.log(res.data));
   };
 
@@ -56,8 +65,12 @@ class UpdateProduct extends Component {
         <div>
           <div className="header-update-product">
             <nav className="nav-update-product">
-              <span>Products</span>
-              <span>Expenses</span>
+              <Link to="/products">
+                <span>Products</span>
+              </Link>
+              <Link to="/expenses">
+                <span>Expenses</span>
+              </Link>
               <span className="user-update-product">
                 <img src={userimg} alt="userimg" /> Pero Perovski
               </span>
@@ -84,7 +97,6 @@ class UpdateProduct extends Component {
                 type="text"
                 value={this.state.product_description}
                 onChange={this.onChangeProductDescription}
-                placeholder="Product Description"
                 required={true}
               />
               <br />

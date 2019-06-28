@@ -1,7 +1,7 @@
 .login-container {
   position: absolute;
   width: 580px;
-  height: 720px;
+  height: 820px;
   z-index: 1;
   top: 10%;
   left: 50%;
@@ -66,6 +66,7 @@
 }
 
 .login-input input {
+  font-family: "Abel", sans-serif;
   display: block;
   margin: 0 auto;
   margin-top: 20px;
@@ -81,7 +82,7 @@
 }
 
 .login-input input::placeholder {
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 21px;
   color: #fff;
   opacity: 1;
@@ -89,14 +90,14 @@
 }
 .login-input [type="email"],
 [type="text"] {
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 21px;
   color: #fff;
 }
 
 .login-input button {
   display: block;
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 33px;
   background: #484c5d;
   background: rgb(255, 255, 255);
@@ -113,7 +114,7 @@
 }
 .login-input button:hover {
   display: block;
-  font-family: Akrobat-regular;
+  font-family: "Abel", sans-serif;
   font-size: 33px;
   background: #ffffff;
   background: rgb(218, 221, 221);

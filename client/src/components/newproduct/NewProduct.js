@@ -64,7 +64,7 @@ class NewProduct extends Component {
       <div>
         <div className="header-add-product">
           <nav className="nav-add-product">
-            <Link to="/products" component={Products}>
+            <Link to="/products">
               <span>Products</span>
             </Link>
             <Link to="/expenses">

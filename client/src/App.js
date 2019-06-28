@@ -19,7 +19,7 @@ class App extends Component {
           <Route path="/products" component={Products} />
           <Route path="/expenses" component={Expenses} />
           <Route path="/new_product" component={NewProduct} />
-          <Route path='/update_product' component={UpdateProduct} />
+          <Route path="/update_product/:id" component={UpdateProduct} />
           <Route component={NoMatch} />
         </Switch>
         <div>

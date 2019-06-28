@@ -1,5 +1,5 @@
 .header h2 {
-  font-size: 6rem;
+  font-size: 7rem;
   font-weight: 800;
   position: absolute;
   top: 20%;
@@ -7,4 +7,16 @@
   right: 5%;
   z-index: 1;
   text-align: center;
+}
+
+@media (max-width: 600px) {
+  .header h2 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .header h2 {
+    font-size: 3rem;
+  }
 }
