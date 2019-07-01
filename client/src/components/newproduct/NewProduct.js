@@ -90,7 +90,7 @@ class NewProduct extends Component {
         <div className="new-product-container">
           <form
             onSubmit={this.onSubmit}
-            className="product-input"
+            className="product-input-new"
             method="post"
           >
             <input
