@@ -31,7 +31,7 @@ class Products extends Component {
     };
   }
 
-  toggle = (productId) => {
+  toggle = productId => {
     this.setState(prevState => ({
       modal: !prevState.modal,
       selectedProductID: productId
@@ -46,8 +46,10 @@ class Products extends Component {
       .catch(err => console.log(err));
   }
 
-  deleteProduct = (id) => {
-    const delProd = this.state.products.filter(product => this.state.selectedProductID !== product._id);
+  deleteProduct = id => {
+    const delProd = this.state.products.filter(
+      product => this.state.selectedProductID !== product._id
+    );
     this.setState({
       products: delProd
     });
@@ -67,12 +69,22 @@ class Products extends Component {
       .then(res => console.log(res.data));
   };
   filterProdPrice = () => {
-    var filterNames = [...this.state.products].sort((a, b) =>
+    var filterPrice = [...this.state.products].sort((a, b) =>
       a.product_price > b.product_price ? 1 : -1
     );
-    this.setState({ products: filterNames });
+    this.setState({ products: filterPrice });
     axios
-      .get("http://127.0.0.1:5000/api/products/", filterNames)
+      .get("http://127.0.0.1:5000/api/products/", filterPrice)
+      .then(res => console.log(res.data));
+  };
+
+  filterProdDate = () => {
+    var filterDate = [...this.state.products].sort((a, b) =>
+      a.product_price > b.product_price ? 1 : -1
+    );
+    this.setState({ products: filterDate });
+    axios
+      .get("http://127.0.0.1:5000/api/products/", filterDate)
       .then(res => console.log(res.data));
   };
 
@@ -96,8 +108,8 @@ class Products extends Component {
             </Link>
             {this.state.products.map(product => (
               <div className="filter" key={product._id}>
-                Filter By:
-                <UncontrolledDropdown>
+                <span className="filter-text">Filter By:</span>
+                <UncontrolledDropdown className="dropdown-btn">
                   <DropdownToggle caret>Choose</DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem onClick={() => this.filterProdName()}>
@@ -108,7 +120,9 @@ class Products extends Component {
                       Price
                     </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem>Date</DropdownItem>
+                    <DropdownItem onClick={() => this.filterProdDate()}>
+                      Date
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
                 <Link to="/new_product">
@@ -121,7 +135,6 @@ class Products extends Component {
             <img src={userimg} alt="userimg" /> Pero Perovski
           </span>
         </nav>
-
 
         <table className="products-table">
           <thead>
@@ -172,11 +185,11 @@ class Products extends Component {
             toggle={this.toggle}
           >
             Delete Product
-                    </ModalHeader>
+          </ModalHeader>
           <ModalBody style={{ fontSize: 22 }}>
-            You are about to delete this product. Are you sure you
-            wish to continue ?
-                    </ModalBody>
+            You are about to delete this product. Are you sure you wish to
+            continue ?
+          </ModalBody>
           <ModalFooter>
             <Button
               style={{ backgroundColor: "#C1272D" }}
@@ -186,10 +199,10 @@ class Products extends Component {
               }}
             >
               Delete
-                      </Button>{" "}
+            </Button>{" "}
             <Button color="secondary" onClick={this.toggle}>
               Cancel
-                      </Button>
+            </Button>
           </ModalFooter>
         </Modal>
       </div>

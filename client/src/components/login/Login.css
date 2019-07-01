@@ -1,7 +1,7 @@
 .login-container {
   position: absolute;
   width: 580px;
-  height: 820px;
+  height: 700px;
   z-index: 1;
   top: 10%;
   left: 50%;
@@ -53,9 +53,9 @@
     );
 }
 
-.logo {
+.logo-login {
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 45px;
   width: 360px;
   height: 300px;
   z-index: 1;
@@ -161,11 +161,11 @@
 
   .login-input button {
     font-size: 22px;
-
     width: 280px;
     height: 35px;
     margin: 0 auto;
     margin-top: 20px;
+    background: #576b8c;
   }
   .login-input button:hover {
     font-size: 22px;
@@ -174,4 +174,11 @@
     margin: 0 auto;
     margin-top: 20px;
   }
+}
+.reg-link-to {
+  position: absolute;
+  font-size: 1.3rem;
+  bottom: 85px;
+  left: 42%;
+  z-index: 1;
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./Register.css";
 import logo from "../../logo.svg";
 
@@ -40,6 +41,9 @@ class Register extends Component {
             <img src={logo} alt="logo" />
           </div>
         </div>
+        <p className="log-link">
+          If you already have an account <Link to="/"> Login</Link>
+        </p>
       </div>
     );
   }

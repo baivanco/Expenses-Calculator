@@ -85,7 +85,7 @@ class Expenses extends Component {
                 <td>{product.product_name}</td>
                 <td>{product.product_type}</td>
                 <td>{product.product_description}</td>
-                <td>{product.purchase_date}</td>
+                <td>{new Date(product.purchase_date).toLocaleDateString()}</td>
                 <td>{product.product_price}</td>
               </tr>
             ))}

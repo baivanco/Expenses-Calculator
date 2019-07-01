@@ -32,29 +32,35 @@ class UpdateProduct extends Component {
   }
 
   FetchProductById = () => {
-    let options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    let options = { day: "numeric", month: "numeric", year: "numeric" };
 
-    axios.get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
+    axios
+      .get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
       .then(res => {
-        this.setState({
-          product_name: res.data.product_name,
-          product_description: res.data.product_description,
-          product_type: res.data.product_type,
-          purchase_date: new Date(res.data.purchase_date).toISOString().slice(0, 10),
-          product_price: res.data.product_price
-        }, () => {
-          console.log(this.state);
-        });
+        this.setState(
+          {
+            product_name: res.data.product_name,
+            product_description: res.data.product_description,
+            product_type: res.data.product_type,
+            purchase_date: new Date(res.data.purchase_date)
+              .toISOString()
+              .slice(0, 10),
+            product_price: res.data.product_price
+          },
+          () => {
+            console.log(this.state);
+          }
+        );
       })
       .catch(err => console.error(err));
-  }
+  };
 
-  InputChangeHandler = (e) => {
+  InputChangeHandler = e => {
     console.log("CHANGE => ", e.target.value);
     this.setState({
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   onSubmit = e => {
     e.preventDefault();
@@ -72,7 +78,11 @@ class UpdateProduct extends Component {
         "http://127.0.0.1:5000/api/products/" + this.props.match.params.id,
         UpdatedProduct
       )
-      .then(res => console.log(res.data))
+      .then(res => {
+        if (res.statusText === "OK") {
+          this.props.history.push("/products");
+        }
+      })
       .catch(err => console.error(err));
   };
 

@@ -187,3 +187,11 @@
     margin-top: 20px;
   }
 }
+.log-link {
+  position: absolute;
+  font-size: 1.3rem;
+  z-index: 1;
+  bottom: 25px;
+  left: 42%;
+  margin: 0 auto;
+}
