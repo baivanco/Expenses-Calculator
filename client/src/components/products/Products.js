@@ -80,7 +80,7 @@ class Products extends Component {
 
   filterProdDate = () => {
     var filterDate = [...this.state.products].sort((a, b) =>
-      a.product_price > b.product_price ? 1 : -1
+      a.purchase_date < b.purchase_date ? 1 : -1
     );
     this.setState({ products: filterDate });
     axios
