@@ -22,7 +22,15 @@ class Expenses extends Component {
       })
       .catch(err => console.log(err));
   }
+
   render() {
+    var total = 0;
+    for (let i in this.state.products) {
+      var price = this.state.products[i].product_price;
+      total += price;
+      console.log(total);
+    }
+
     return (
       <div className="container-products-list">
         <nav className="nav-bar-products">
@@ -38,10 +46,11 @@ class Expenses extends Component {
             <img src={userimg} alt="userimg" /> Pero Perovski
           </span>
         </nav>
-        <span className="total-view">total spent : 2500 $</span>
+        <span className="total-view">total spent : {total} MKD</span>
 
         <div className="exp-filters">
           <button>Monthly</button>
+
           <button>Yearly</button>
 
           <label>Choose Year</label>
@@ -51,6 +60,7 @@ class Expenses extends Component {
             <option value="2018">2018</option>
             <option value="2019">2019</option>
           </select>
+
           <label>Choose Month</label>
           <select>
             <option value="january">January</option>
@@ -86,7 +96,7 @@ class Expenses extends Component {
                 <td>{product.product_type}</td>
                 <td>{product.product_description}</td>
                 <td>{new Date(product.purchase_date).toLocaleDateString()}</td>
-                <td>{product.product_price}</td>
+                <td>{product.product_price} MKD</td>
               </tr>
             ))}
           </tbody>

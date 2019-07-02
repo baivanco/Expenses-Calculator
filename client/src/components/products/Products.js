@@ -155,7 +155,7 @@ class Products extends Component {
                 <td>{product.product_type}</td>
                 <td>{product.product_description}</td>
                 <td>{new Date(product.purchase_date).toLocaleDateString()}</td>
-                <td>{product.product_price}</td>
+                <td>{product.product_price} MKD</td>
                 <td>
                   <Link to={"/update_product/" + product._id}>
                     <img
