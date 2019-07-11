@@ -112,7 +112,7 @@ tbody tr td {
 
 th,
 td {
-  padding: 18px;
+  padding: 10px;
 }
 
 .filter {
@@ -129,4 +129,16 @@ td {
 }
 .dropdown-btn {
   margin-right: 58px;
+}
+.pagination-info {
+  position: fixed;
+  display: flex;
+  top: 20%;
+  left: 5%;
+}
+.pag-items {
+  margin-left: 8px;
+}
+.pag-prod {
+  margin-left: 8px;
 }

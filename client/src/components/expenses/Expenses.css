@@ -55,7 +55,7 @@
   border-width: 1px;
   position: absolute;
   position: fixed;
-  left: 1835px;
+  left: 1635px;
   top: 160px;
   width: 257px;
   height: 48px;
@@ -125,7 +125,7 @@ tbody tr td {
   border-color: rgba(0, 0, 0, 1);
   border-width: 1px;
   opacity: 0.8;
-  width: 130px;
+
   height: 33px;
   border-radius: 9px;
   font-size: 18px;

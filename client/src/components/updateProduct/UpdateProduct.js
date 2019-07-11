@@ -37,20 +37,15 @@ class UpdateProduct extends Component {
     axios
       .get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
       .then(res => {
-        this.setState(
-          {
-            product_name: res.data.product_name,
-            product_description: res.data.product_description,
-            product_type: res.data.product_type,
-            purchase_date: new Date(res.data.purchase_date)
-              .toISOString()
-              .slice(0, 10),
-            product_price: res.data.product_price
-          },
-          () => {
-            console.log(this.state);
-          }
-        );
+        this.setState({
+          product_name: res.data.product_name,
+          product_description: res.data.product_description,
+          product_type: res.data.product_type,
+          purchase_date: new Date(res.data.purchase_date)
+            .toISOString()
+            .slice(0, 10),
+          product_price: res.data.product_price
+        });
       })
       .catch(err => console.error(err));
   };

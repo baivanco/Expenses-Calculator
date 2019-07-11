@@ -8,12 +8,26 @@ import del from "./del-icon.svg";
 import axios from "axios";
 import Product from "../product/Product";
 import userimg from "./userimg.svg";
+import { posix } from "path";
 
 class Expenses extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [] };
+    this.state = {
+      products: [],
+      selectedFilterId: null,
+      yearViewId: null,
+      filterByYear: []
+    };
   }
+
+  setSelectedFilter = id => {
+    this.setState({ selectedFilterId: id });
+  };
+
+  yearView = id => {
+    this.setState({ yearViewId: id });
+  };
 
   componentDidMount() {
     axios("http://127.0.0.1:5000/api/products")
@@ -23,6 +37,15 @@ class Expenses extends Component {
       .catch(err => console.log(err));
   }
 
+  filterByYear = e => {
+    const filteredByYear = [...this.state.products].filter(
+      year => year.purchase_date
+    );
+
+    console.log(filteredByYear);
+    console.log(this.state.products);
+  };
+
   render() {
     var total = 0;
     for (let i in this.state.products) {
@@ -30,6 +53,21 @@ class Expenses extends Component {
       total += price;
       console.log(total);
     }
+
+    var selectedStyle;
+    this.state.selectedFilterId === 1
+      ? (selectedStyle = { background: "#c1272d", outline: "none" })
+      : (selectedStyle = {});
+
+    var selectedStyle2;
+    this.state.selectedFilterId === 2
+      ? (selectedStyle2 = { background: "#c1272d", outline: "none" })
+      : (selectedStyle2 = {});
+
+    var hidden;
+    this.state.yearViewId === 2
+      ? (hidden = { display: "none" })
+      : (hidden = { display: "inline-block" });
 
     return (
       <div className="container-products-list">
@@ -49,33 +87,59 @@ class Expenses extends Component {
         <span className="total-view">total spent : {total} MKD</span>
 
         <div className="exp-filters">
-          <button>Monthly</button>
-
-          <button>Yearly</button>
+          <button
+            style={selectedStyle}
+            onClick={() => {
+              this.setSelectedFilter(1);
+              this.yearView(1);
+            }}
+          >
+            Monthly
+          </button>
+          <button
+            style={selectedStyle2}
+            onClick={() => {
+              this.setSelectedFilter(2);
+              this.yearView(2);
+            }}
+          >
+            Yearly
+          </button>
 
           <label>Choose Year</label>
+
           <select>
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
+            <option onClick={this.filterByYear} value="2016">
+              2016
+            </option>
+            <option onClick={this.filterByYear} value="2017">
+              2017
+            </option>
+            <option onClick={this.filterByYear} value="2018">
+              2018
+            </option>
+            <option onClick={this.filterByYear} value="2019">
+              2019
+            </option>
           </select>
 
-          <label>Choose Month</label>
-          <select>
-            <option value="january">January</option>
-            <option value="february">February</option>
-            <option value="march">March</option>
-            <option value="arpil">Arpil</option>
-            <option value="may">May</option>
-            <option value="june">June</option>
-            <option value="july">July</option>
-            <option value="august">August</option>
-            <option value="september">September</option>
-            <option value="octomber">Octomber</option>
-            <option value="november">November</option>
-            <option value="december">December</option>
-          </select>
+          <div style={hidden}>
+            <label>Choose Month</label>
+            <select>
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="arpil">Arpil</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="octomber">Octomber</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
         </div>
 
         <table className="expenses-table">

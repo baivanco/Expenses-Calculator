@@ -65,22 +65,18 @@
   justify-content: center;
 }
 
-.logo-i img {
+.logo-u img {
   width: 290px;
 }
 
-img {
-  vertical-align: middle;
-  border-style: none;}
-
 .product-input {
   display: flex;
-    flex-wrap: wrap;
-    width: 50%;
-    box-sizing: border-box;
-    padding: 30px 0px;
-    align-content: center;
-    justify-content: center;
+  flex-wrap: wrap;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 30px 0px;
+  align-content: center;
+  justify-content: center;
 }
 
 .product-input input {

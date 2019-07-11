@@ -16,6 +16,7 @@ import {
   ModalBody,
   ModalFooter
 } from "reactstrap";
+import paginate from "paginate-array";
 
 import userimg from "./userimg.svg";
 import NewProduct from "../newproduct/NewProduct";
@@ -27,7 +28,10 @@ class Products extends Component {
     this.state = {
       products: [],
       modal: false,
-      selectedProductID: ""
+      selectedProductID: "",
+      size: 5,
+      page: 1,
+      currPage: null
     };
   }
 
@@ -41,16 +45,58 @@ class Products extends Component {
   componentDidMount() {
     axios("http://127.0.0.1:5000/api/products")
       .then(response => {
-        this.setState({ products: response.data });
+        const { page, size } = this.state;
+        const currPage = paginate(response.data, page, size);
+        this.setState({ products: response.data, currPage });
       })
       .catch(err => console.log(err));
   }
+  previousPage = () => {
+    const { currPage, page, size, products } = this.state;
+
+    if (page > 1) {
+      const newPage = page - 1;
+      const newCurrPage = paginate(products, newPage, size);
+
+      this.setState({
+        ...this.state,
+        page: newPage,
+        currPage: newCurrPage
+      });
+    }
+  };
+
+  nextPage = () => {
+    const { currPage, page, size, products } = this.state;
+
+    if (page < currPage.totalPages) {
+      const newPage = page + 1;
+      const newCurrPage = paginate(products, newPage, size);
+      this.setState({ ...this.state, page: newPage, currPage: newCurrPage });
+    }
+  };
+  handleChange = e => {
+    const { value } = e.target;
+    const { products, page } = this.state;
+
+    const newSize = +value;
+    const newPage = 1;
+    const newCurrPage = paginate(products, newPage, newSize);
+
+    this.setState({
+      ...this.state,
+      size: newSize,
+      page: newPage,
+      currPage: newCurrPage
+    });
+  };
 
   deleteProduct = id => {
     const delProd = this.state.products.filter(
       product => this.state.selectedProductID !== product._id
     );
     this.setState({
+      ...this.state,
       products: delProd
     });
 
@@ -58,6 +104,16 @@ class Products extends Component {
       .delete("http://127.0.0.1:5000/api/products/" + id, delProd)
       .then(res => console.log(res.data));
   };
+
+  componentDidUpdate() {
+    axios("http://127.0.0.1:5000/api/products")
+      .then(response => {
+        const { page, size } = this.state;
+        const currPage = paginate(response.data, page, size);
+        this.setState({ products: response.data, currPage });
+      })
+      .catch(err => console.log(err));
+  }
 
   filterProdName = () => {
     var filterNames = [...this.state.products].sort((a, b) =>
@@ -89,6 +145,7 @@ class Products extends Component {
   };
 
   render() {
+    const { page, size, currPage } = this.state;
     return (
       <div className="container-products-list">
         <nav className="nav-bar-products">
@@ -106,6 +163,7 @@ class Products extends Component {
                 Expenses
               </span>
             </Link>
+
             {this.state.products.map(product => (
               <div className="filter" key={product._id}>
                 <span className="filter-text">Filter By:</span>
@@ -135,7 +193,18 @@ class Products extends Component {
             <img src={userimg} alt="userimg" /> Pero Perovski
           </span>
         </nav>
-
+        <div className="pagination-info">
+          <div className="pag-page">Page: {page} |</div>
+          <div className="pag-items">Items: {size} |</div>
+          <div className="pag-prod">
+            <label for="size">Products Per Page</label>
+            <select name="size" id="size" onChange={this.handleChange}>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+        </div>
         <table className="products-table">
           <thead>
             <tr className="prod-table-headers">
@@ -148,32 +217,39 @@ class Products extends Component {
             </tr>
           </thead>
           <div className="table-line-border" />
-          <tbody>
-            {this.state.products.map(product => (
-              <tr key={product._id}>
-                <td>{product.product_name}</td>
-                <td>{product.product_type}</td>
-                <td>{product.product_description}</td>
-                <td>{new Date(product.purchase_date).toLocaleDateString()}</td>
-                <td>{product.product_price} MKD</td>
-                <td>
-                  <Link to={"/update_product/" + product._id}>
+
+          {currPage && (
+            <tbody>
+              {currPage.data.map(product => (
+                <tr key={product._id}>
+                  <td>{product.product_name}</td>
+                  <td>{product.product_type}</td>
+                  <td>{product.product_description}</td>
+                  <td>
+                    {new Date(product.purchase_date).toLocaleDateString()}
+                  </td>
+                  <td>{product.product_price} MKD</td>
+                  <td>
+                    <Link to={"/update_product/" + product._id}>
+                      <img
+                        src={edit}
+                        style={{ width: 25, marginRight: 5 }}
+                        className="option-links edit"
+                      />
+                    </Link>
                     <img
-                      src={edit}
-                      style={{ width: 25, marginRight: 5 }}
-                      className="option-links edit"
+                      onClick={() => this.toggle(product._id)}
+                      src={del}
+                      style={{ width: 25 }}
+                      className="option-links del"
                     />
-                  </Link>
-                  <img
-                    onClick={() => this.toggle(product._id)}
-                    src={del}
-                    style={{ width: 25 }}
-                    className="option-links del"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
+          <button onClick={this.previousPage}>Previous Page</button>
+          <button onClick={this.nextPage}>Next Page</button>
         </table>
         <Modal
           isOpen={this.state.modal}
