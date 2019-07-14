@@ -43,7 +43,7 @@
 
 .expenses-table {
   margin-top: 48px;
-  font-size: 28px;
+  font-size: 25px;
 }
 
 .total-view {
@@ -54,8 +54,7 @@
   border-color: rgba(140, 22, 25, 1);
   border-width: 1px;
   position: absolute;
-  position: fixed;
-  left: 1635px;
+  left: 90%;
   top: 160px;
   width: 257px;
   height: 48px;
@@ -90,12 +89,12 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr td {
-  height: 80px;
+  height: 30px;
 }
 
 .exp-filters {
   margin-left: 107px;
-  margin-top: 236px;
+  margin-top: 166px;
 }
 .exp-filters button {
   background: #576b8c;

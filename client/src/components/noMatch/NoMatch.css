@@ -1,12 +1,17 @@
 .header h2 {
-  font-size: 7rem;
-  font-weight: 800;
+  font-family: "Abel";
+  text-transform: uppercase;
+  font-size: 5rem;
+  font-weight: 900;
   position: absolute;
   top: 20%;
-  left: 5%;
-  right: 5%;
+  left: 15%;
+  right: 15%;
   z-index: 1;
   text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+  border: 13px solid #576b8c80;
+  padding: 40px;
 }
 
 @media (max-width: 600px) {

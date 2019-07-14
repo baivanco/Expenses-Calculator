@@ -3,7 +3,7 @@ import Login from "./components/login/Login";
 import "./App.css";
 import Register from "./components/register/Register";
 import Products from "./components/products/Products";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import NewProduct from "./components/newproduct/NewProduct";
 import UpdateProduct from "./components/updateProduct/UpdateProduct";
 import Expenses from "./components/expenses/Expenses";

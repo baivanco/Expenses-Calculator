@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import "./Expenses.css";
 import { Link } from "react-router-dom";
-import Products from "../products/Products";
+
 import logo from "../../logo.svg";
-import edit from "./edit-icon.svg";
-import del from "./del-icon.svg";
+
 import axios from "axios";
-import Product from "../product/Product";
+
 import userimg from "./userimg.svg";
-import { posix } from "path";
 
 class Expenses extends Component {
   constructor(props) {
@@ -43,7 +41,6 @@ class Expenses extends Component {
     );
 
     console.log(filteredByYear);
-    console.log(this.state.products);
   };
 
   render() {
@@ -148,19 +145,29 @@ class Expenses extends Component {
               <th>Product Name</th>
               <th>Product Type</th>
               <th>Product Description</th>
-              <th>Purchase Date</th>
-              <th>Product Price</th>
+              <th style={{ textAlign: "right" }}>Purchase Date</th>
+              <th style={{ textAlign: "right" }}>Product Price</th>
             </tr>
           </thead>
           <div className="table-line-border" />
           <tbody>
             {this.state.products.map(product => (
               <tr key={product._id}>
-                <td>{product.product_name}</td>
+                <td
+                  style={{
+                    fontWeight: "bold"
+                  }}
+                >
+                  {product.product_name}
+                </td>
                 <td>{product.product_type}</td>
                 <td>{product.product_description}</td>
-                <td>{new Date(product.purchase_date).toLocaleDateString()}</td>
-                <td>{product.product_price} MKD</td>
+                <td style={{ textAlign: "right" }}>
+                  {new Date(product.purchase_date).toLocaleDateString()}
+                </td>
+                <td style={{ textAlign: "right", fontWeight: "bold" }}>
+                  {product.product_price} MKD
+                </td>
               </tr>
             ))}
           </tbody>

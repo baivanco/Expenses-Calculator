@@ -32,7 +32,7 @@ class UpdateProduct extends Component {
   }
 
   FetchProductById = () => {
-    let options = { day: "numeric", month: "numeric", year: "numeric" };
+    // let options = { day: "numeric", month: "numeric", year: "numeric" };
 
     axios
       .get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)

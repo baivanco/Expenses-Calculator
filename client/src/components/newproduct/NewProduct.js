@@ -4,8 +4,6 @@ import userimg from "./userimg.svg";
 import logo from "../../logo.svg";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Products from "../products/Products";
-import Expenses from "../expenses/Expenses";
 
 class NewProduct extends Component {
   constructor(props) {
@@ -20,7 +18,6 @@ class NewProduct extends Component {
     };
   }
 
-
   onChangeProductName = e => {
     this.setState({ product_name: e.target.value });
   };
@@ -31,7 +28,7 @@ class NewProduct extends Component {
     this.setState({ product_type: e.target.value });
   };
   onChangePurchaseDate = e => {
-    console.log(e)
+    console.log(e);
     this.setState({ purchase_date: e.target.value });
   };
   onChangeProductPrice = e => {
@@ -51,22 +48,19 @@ class NewProduct extends Component {
       product_price: this.state.product_price
     };
 
-    axios
-      .post("http://127.0.0.1:5000/api/products", NewProduct)
-      .then(res => {
-        if (res.statusText === "OK") {
-          console.log("NEW PRODUCT", NewProduct)
-          this.setState({
-            product_name: "",
-            product_description: "",
-            product_type: "",
-            purchase_date: "",
-            product_price: ""
-          });
-          this.props.history.push("/products");
-        }
-      });
-
+    axios.post("http://127.0.0.1:5000/api/products", NewProduct).then(res => {
+      if (res.statusText === "OK") {
+        console.log("NEW PRODUCT", NewProduct);
+        this.setState({
+          product_name: "",
+          product_description: "",
+          product_type: "",
+          purchase_date: "",
+          product_price: ""
+        });
+        this.props.history.push("/products");
+      }
+    });
   };
 
   render() {
