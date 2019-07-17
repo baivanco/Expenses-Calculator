@@ -15,7 +15,8 @@ class Expenses extends Component {
       products: [],
       selectedFilterId: null,
       yearViewId: null,
-      filterByYear: []
+      filterByYear: [],
+      fy: "2019",
     };
   }
 
@@ -36,12 +37,36 @@ class Expenses extends Component {
   }
 
   filterByYear = e => {
-    const filteredByYear = [...this.state.products].filter(
-      year => year.purchase_date
-    );
+    // console.log(e.target.value);
+    // this.setState({ 
+    //   products: this.state.products.filter((product) => {
+    //     var d = new Date(product.purchase_date);
 
-    console.log(filteredByYear);
+    //     if(d.getFullYear() == e.target.value){
+    //       console.log(d.getFullYear(), " == ", e.target.value);
+    //     } else {
+    //       console.log(d.getFullYear(), " != ", e.target.value);
+    //     }
+
+
+    //     return d.getFullYear() == e.target.value;
+    //   })
+    // });
+      
+    // console.log('perooooooo!!!!');
+    // console.log(this.state.products);
+    // console.log('perooooooo!!!!');
+
+    // axios
+    //   .get("http://127.0.0.1:5000/api/products/", this.state.products)
+    //   .then(res => console.log(res.data));
+    this.setState({
+      fy: e.target.value
+    });
   };
+
+
+  
 
   render() {
     var total = 0;
@@ -105,19 +130,11 @@ class Expenses extends Component {
 
           <label>Choose Year</label>
 
-          <select>
-            <option onClick={this.filterByYear} value="2016">
-              2016
-            </option>
-            <option onClick={this.filterByYear} value="2017">
-              2017
-            </option>
-            <option onClick={this.filterByYear} value="2018">
-              2018
-            </option>
-            <option onClick={this.filterByYear} value="2019">
-              2019
-            </option>
+          <select onChange={this.filterByYear}>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
           </select>
 
           <div style={hidden}>
@@ -151,7 +168,10 @@ class Expenses extends Component {
           </thead>
           <div className="table-line-border" />
           <tbody>
-            {this.state.products.map(product => (
+            {this.state.products.filter(p => {
+              var d = new Date(p.purchase_date);
+              return d.getFullYear() == this.state.fy
+            }).map(product => (
               <tr key={product._id}>
                 <td
                   style={{
