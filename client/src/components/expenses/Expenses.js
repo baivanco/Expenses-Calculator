@@ -37,7 +37,7 @@ class Expenses extends Component {
 
   filterByYear = e => {
     const filteredByYear = [...this.state.products].filter(
-      year => year.purchase_date
+      year => year.purchase_date === e.target.value
     );
 
     console.log(filteredByYear);

@@ -11,6 +11,7 @@ class Login extends Component {
     return (
       <div>
         <About />
+
         <div className="login-container">
           <div className="logo-login">
             <img src={logo} alt="logo" />
@@ -26,10 +27,10 @@ class Login extends Component {
             />
             <button type="submit">Login</button>
           </form>
+          <p className="reg-link-to">
+            If you don`t have an account<Link to="/register"> Register</Link>
+          </p>
         </div>
-        <p className="reg-link-to">
-          If you don`t have an account<Link to="/register"> Register</Link>
-        </p>
       </div>
     );
   }

@@ -37,13 +37,13 @@ class Register extends Component {
             />
             <button type="submit">Register</button>
           </form>
-          <div className="logo">
+          <div className="logo-r">
             <img src={logo} alt="logo" />
           </div>
+          <p className="log-link">
+            If you already have an account <Link to="/"> Login</Link>
+          </p>
         </div>
-        <p className="log-link">
-          If you already have an account <Link to="/"> Login</Link>
-        </p>
       </div>
     );
   }
