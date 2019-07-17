@@ -172,7 +172,7 @@ class Expenses extends Component {
               var d = new Date(p.purchase_date);
               return d.getFullYear() == this.state.fy
             }).map(product => (
-              <tr key={product._id}>
+              <tr key={product._id}>`
                 <td
                   style={{
                     fontWeight: "bold"
