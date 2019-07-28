@@ -127,9 +127,6 @@ class Products extends Component {
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-                <Link to="/new_product">
-                  <button className="new-product-btn">new product</button>
-                </Link>
               </div>
             ))}
           </div>
@@ -137,6 +134,9 @@ class Products extends Component {
             <img src={userimg} alt="userimg" /> Pero Perovski
           </span>
         </nav>
+        <Link to="/new_product">
+          <button className="new-product-btn">new product</button>
+        </Link>
 
         <table className="products-table">
           <thead>

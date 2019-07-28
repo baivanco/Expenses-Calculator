@@ -48,7 +48,6 @@
 }
 
 .new-product-btn {
-  
   background: #009245;
   background: rgba(0, 146, 69, 1);
   border-style: Solid;
@@ -56,6 +55,8 @@
   border-color: rgba(0, 104, 55, 1);
   border-width: 1px;
   position: absolute;
+  left: 95%;
+  top: 60%;
   width: 169px;
   height: 48px;
   border-radius: 10px;
