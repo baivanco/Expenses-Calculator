@@ -15,8 +15,8 @@ class Expenses extends Component {
       products: [],
       selectedFilterId: null,
       yearViewId: null,
-      filterByYear: [],
-      fy: "2019"
+      fy: "2019",
+      fm: "1"
     };
   }
 
@@ -37,19 +37,20 @@ class Expenses extends Component {
   }
 
   filterByYear = e => {
-    const filteredByYear = [...this.state.products].filter(
-      year => year.purchase_date === e.target.value
-    );
+    this.setState({ fy: e.target.value });
+  };
 
-    console.log(filteredByYear);
+  filterByMonth = e => {
+    this.setState({ fm: e.target.value });
+    console.log(this.state.fm);
   };
 
   render() {
+    var options = { year: "numeric", month: "short", day: "2-digit" };
     var total = 0;
     for (let i in this.state.products) {
       var price = this.state.products[i].product_price;
       total += price;
-      console.log(total);
     }
 
     var selectedStyle;
@@ -115,19 +116,19 @@ class Expenses extends Component {
 
           <div style={hidden}>
             <label>Choose Month</label>
-            <select>
-              <option value="january">January</option>
-              <option value="february">February</option>
-              <option value="march">March</option>
-              <option value="arpil">Arpil</option>
+            <select onChange={this.filterByMonth}>
+              <option value="jan">January</option>
+              <option value="feb">February</option>
+              <option value="mar">March</option>
+              <option value="apr">April</option>
               <option value="may">May</option>
-              <option value="june">June</option>
-              <option value="july">July</option>
-              <option value="august">August</option>
-              <option value="september">September</option>
-              <option value="octomber">Octomber</option>
-              <option value="november">November</option>
-              <option value="december">December</option>
+              <option value="jun">June</option>
+              <option value="jul">July</option>
+              <option value="aug">August</option>
+              <option value="sep">September</option>
+              <option value="oct">Octomber</option>
+              <option value="nov">November</option>
+              <option value="dec">December</option>
             </select>
           </div>
         </div>
@@ -151,7 +152,6 @@ class Expenses extends Component {
               })
               .map(product => (
                 <tr key={product._id}>
-                  `
                   <td
                     style={{
                       fontWeight: "bold"
@@ -162,7 +162,10 @@ class Expenses extends Component {
                   <td>{product.product_type}</td>
                   <td>{product.product_description}</td>
                   <td style={{ textAlign: "right" }}>
-                    {new Date(product.purchase_date).toLocaleDateString()}
+                    {new Date(product.purchase_date).toLocaleDateString(
+                      "en-GB",
+                      options
+                    )}
                   </td>
                   <td style={{ textAlign: "right", fontWeight: "bold" }}>
                     {product.product_price} MKD

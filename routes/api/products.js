@@ -7,17 +7,17 @@ const Product = require("../../models/Product");
 
 //@route  GET api/products
 //@desc   Get All Products
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   Product.find().then(products => res.json(products));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", auth, (req, res) => {
   Product.findById(req.params.id).then(product => res.json(product));
 });
 
 //@route  POST api/products
 //@desc   Create New Product
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const {
     product_name,
     product_type,
@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
 
 //@route  DELETE api/products
 //@desc   Delete Product
-router.delete("/:id", (req, res) => {
+router.delete("/:id", auth, (req, res) => {
   Product.findById(req.params.id)
     .then(product => product.remove().then(() => res.json({ deleted: true })))
     .catch(err => {
@@ -47,7 +47,7 @@ router.delete("/:id", (req, res) => {
 
 //@route  PUT api/products
 //@desc   Update Product
-router.put("/:id", (req, res) => {
+router.put("/:id", auth, (req, res) => {
   Product.findById(req.params.id, function(err, product) {
     if (!product) {
       res.status(404).send("product not found");
