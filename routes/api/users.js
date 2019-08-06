@@ -14,7 +14,7 @@ router.post("/", (req, res) => {
     first_name,
     last_name,
     email,
-    register_date,
+    birth_date,
     telephone,
     country,
     password
@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
     !first_name ||
     !last_name ||
     !email ||
-    !register_date ||
+    !birth_date ||
     !telephone ||
     !country ||
     !password
@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
         first_name,
         last_name,
         email,
-        register_date,
+        birth_date,
         telephone,
         country,
         password
@@ -68,7 +68,7 @@ router.post("/", (req, res) => {
                     first_name: user.first_name,
                     last_name: user.last_name,
                     email: user.email,
-                    register_date: user.register_date,
+                    birth_date: user.birth_date,
                     telephone: user.telephone,
                     country: user.country
                   }

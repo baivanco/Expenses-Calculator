@@ -4,11 +4,12 @@ import userimg from "./userimg.svg";
 import logo from "../../logo.svg";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { addProduct } from "../../actions/productActions";
 
 class NewProduct extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       product_name: "",
       product_description: "",
@@ -18,27 +19,27 @@ class NewProduct extends Component {
     };
   }
 
-  onChangeProductName = e => {
-    this.setState({ product_name: e.target.value });
-  };
-  onChangeProductDescription = e => {
-    this.setState({ product_description: e.target.value });
-  };
-  onChangeProductType = e => {
-    this.setState({ product_type: e.target.value });
-  };
-  onChangePurchaseDate = e => {
-    console.log(e);
-    this.setState({ purchase_date: e.target.value });
-  };
-  onChangeProductPrice = e => {
-    this.setState({ product_price: e.target.value });
-  };
+  onChangeAdd = e => {
+    this.setState({ [e.target.name]: e.target.value });
 
+    //   this.setState({ product_name: e.target.value });
+    // };
+    // onChangeProductDescription = e => {
+    //   this.setState({ product_description: e.target.value });
+    // };
+    // onChangeProductType = e => {
+    //   this.setState({ product_type: e.target.value });
+    // };
+    // onChangePurchaseDate = e => {
+    //   console.log(e);
+    //   this.setState({ purchase_date: e.target.value });
+    // };
+    // onChangeProductPrice = e => {
+    //   this.setState({ product_price: e.target.value });
+    // };
+  };
   onSubmit = e => {
     e.preventDefault();
-
-    console.log("THIS", this);
 
     const NewProduct = {
       product_name: this.state.product_name,
@@ -48,22 +49,26 @@ class NewProduct extends Component {
       product_price: this.state.product_price
     };
 
-    axios.post("http://127.0.0.1:5000/api/products", NewProduct).then(res => {
-      if (res.statusText === "OK") {
-        console.log("NEW PRODUCT", NewProduct);
-        this.setState({
-          product_name: "",
-          product_description: "",
-          product_type: "",
-          purchase_date: "",
-          product_price: ""
-        });
-        this.props.history.push("/products");
-      }
-    });
+    //   axios.post("http://127.0.0.1:5000/api/products", NewProduct).then(res => {
+    //     if (res.statusText === "OK") {
+    //       console.log("NEW PRODUCT", NewProduct);
+    //       this.setState({
+    //         product_name: "",
+    //         product_description: "",
+    //         product_type: "",
+    //         purchase_date: "",
+    //         product_price: ""
+    //       });
+    //       this.props.history.push("/products");
+    //     }
+    //   });
+    // };
+    this.props.addProduct(NewProduct);
+    this.props.history.push("/products");
   };
 
   render() {
+    const { products } = this.props.product;
     return (
       <div>
         <div className="header-add-product">
@@ -91,8 +96,9 @@ class NewProduct extends Component {
               autoFocus={true}
               className="input-product-name"
               type="text"
-              value={this.state.product_name}
-              onChange={this.onChangeProductName}
+              value={products.product_name}
+              name="product_name"
+              onChange={this.onChangeAdd}
               placeholder="Product Name"
               required={true}
             />
@@ -100,31 +106,35 @@ class NewProduct extends Component {
 
             <input
               type="text"
-              value={this.state.product_description}
-              onChange={this.onChangeProductDescription}
+              value={products.product_description}
+              name="product_description"
+              onChange={this.onChangeAdd}
               placeholder="Product Description"
               required={true}
             />
             <br />
             <input
               type="text"
-              value={this.state.product_type}
-              onChange={this.onChangeProductType}
+              value={products.product_type}
+              name="product_type"
+              onChange={this.onChangeAdd}
               placeholder="Product Type"
               required={true}
             />
             <br />
             <input
               type="date"
-              onChange={this.onChangePurchaseDate}
+              onChange={this.onChangeAdd}
               placeholder="Purschase Date"
               required={true}
-              value={this.state.purchase_date}
+              value={products.purchase_date}
+              name="purchase_date"
             />
             <br />
             <input
-              onChange={this.onChangeProductPrice}
-              value={this.state.product_price}
+              onChange={this.onChangeAdd}
+              value={products.product_price}
+              name="product_price"
               type="number"
               placeholder="Product Price"
               required={true}
@@ -141,4 +151,12 @@ class NewProduct extends Component {
     );
   }
 }
-export default NewProduct;
+
+const mapStateToProps = state => ({
+  product: state.product
+});
+
+export default connect(
+  mapStateToProps,
+  { addProduct }
+)(NewProduct);

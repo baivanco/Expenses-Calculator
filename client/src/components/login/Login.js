@@ -1,11 +1,52 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../../actions/authActions";
+import { clearErrors } from "../../actions/errorActions";
 import "./Login.css";
 import logo from "../../logo.svg";
 import About from "../about/About";
 
 class Login extends Component {
-  onSubmit = e => e.preventDefault();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: "",
+      password: "",
+      msg: null
+    };
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+
+    const { email, password } = this.state;
+    const user = {
+      email,
+      password
+    };
+
+    //Attempt to Login
+    this.props.login(user);
+    this.props.history.push("/products");
+  };
+
+  componentDidUpdate(prevProps) {
+    const { error } = this.props;
+    if (error !== prevProps.error) {
+      //Check for login error
+      if (error.id === "LOGIN_FAIL") {
+        this.setState({ msg: error.msg.msg });
+      } else {
+        this.setState({ msg: null });
+      }
+    }
+  }
 
   render() {
     return (
@@ -18,12 +59,20 @@ class Login extends Component {
           </div>
 
           <form onSubmit={this.onSubmit} className="login-input" method="post">
-            <input type="email" placeholder="Email" autoFocus={true} />
             <input
+              name="email "
+              type="email"
+              placeholder="Email"
+              autoFocus={true}
+              onChange={this.onChange}
+            />
+            <input
+              name="password"
               type="password"
               placeholder="Password"
               required="enabled"
               minLength="6"
+              onChange={this.onChange}
             />
             <button type="submit">Login</button>
           </form>
@@ -36,4 +85,12 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
+});
+
+export default connect(
+  mapStateToProps,
+  { login, clearErrors }
+)(Login);

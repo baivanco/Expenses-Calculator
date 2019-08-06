@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Products.css";
+import Logout from "../logout/Logout";
 import logo from "../../logo.svg";
 import edit from "./edit-icon.svg";
 import del from "./del-icon.svg";
@@ -17,16 +18,17 @@ import {
   ModalFooter
 } from "reactstrap";
 
+import { connect } from "react-redux";
+import { getProducts, deleteProduct } from "../../actions/productActions";
+
 import userimg from "./userimg.svg";
 
 class Products extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
       modal: false,
-      selectedProductID: "",
-      current: 1
+      selectedProductID: ""
     };
   }
 
@@ -38,38 +40,29 @@ class Products extends Component {
   };
 
   componentDidMount() {
-    axios("http://127.0.0.1:5000/api/products")
-      .then(response => {
-        this.setState({ products: response.data, loading: false });
-      })
-      .catch(err => console.log(err));
+    this.props.getProducts();
   }
 
   deleteProduct = id => {
-    const delProd = this.state.products.filter(
-      product => this.state.selectedProductID !== product._id
-    );
-    this.setState({
-      ...this.state,
-      products: delProd
-    });
-
-    axios
-      .delete("http://127.0.0.1:5000/api/products/" + id, delProd)
-      .then(res => console.log(res.data));
+    this.props.deleteProduct(id);
   };
 
   filterProdName = () => {
-    var filterNames = [...this.state.products].sort((a, b) =>
-      a.product_name.toLowerCase() > b.product_name.toLowerCase() ? 1 : -1
+    var filterNames = this.props.product.products.sort((a, b) =>
+      a.product_name.toString().toLowerCase() >
+      b.product_name.toString().toLowerCase()
+        ? 1
+        : -1
     );
+    console.log(filterNames);
     this.setState({ products: filterNames });
     axios
       .get("http://127.0.0.1:5000/api/products/", filterNames)
       .then(res => console.log("OK"));
   };
+
   filterProdPrice = () => {
-    var filterPrice = [...this.state.products].sort((a, b) =>
+    var filterPrice = this.props.product.products.sort((a, b) =>
       a.product_price > b.product_price ? 1 : -1
     );
     this.setState({ products: filterPrice });
@@ -79,7 +72,7 @@ class Products extends Component {
   };
 
   filterProdDate = () => {
-    var filterDate = [...this.state.products].sort((a, b) =>
+    var filterDate = this.props.product.products.sort((a, b) =>
       a.purchase_date < b.purchase_date ? 1 : -1
     );
     this.setState({ products: filterDate });
@@ -89,9 +82,11 @@ class Products extends Component {
   };
 
   render() {
+    const { products } = this.props.product;
     var options = { year: "numeric", month: "short", day: "2-digit" };
     return (
       <div className="container-products-list">
+        <Logout />
         <nav className="nav-bar-products">
           <img src={logo} alt="logo-img" style={{ width: "70px" }} />
           <div className="nav-bar-links">
@@ -108,7 +103,7 @@ class Products extends Component {
               </span>
             </Link>
 
-            {this.state.products.map(product => (
+            {products.map(product => (
               <div className="filter" key={product._id}>
                 <span className="filter-text">Filter By:</span>
                 <UncontrolledDropdown className="dropdown-btn">
@@ -151,7 +146,7 @@ class Products extends Component {
           </thead>
           <div className="table-line-border" />
           <tbody>
-            {this.state.products.map(product => (
+            {products.map(product => (
               <tr key={product._id}>
                 <td
                   style={{
@@ -232,4 +227,11 @@ class Products extends Component {
     );
   }
 }
-export default Products;
+
+const mapStateToProps = state => ({
+  product: state.product
+});
+export default connect(
+  mapStateToProps,
+  { getProducts, deleteProduct }
+)(Products);

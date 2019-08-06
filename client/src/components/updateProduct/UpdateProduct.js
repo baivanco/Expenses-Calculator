@@ -51,7 +51,6 @@ class UpdateProduct extends Component {
   };
 
   InputChangeHandler = e => {
-    console.log("CHANGE => ", e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
