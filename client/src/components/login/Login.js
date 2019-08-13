@@ -33,7 +33,9 @@ class Login extends Component {
 
     //Attempt to Login
     this.props.login(user);
-    this.props.history.push("/products");
+    if (this.props.isAuthenticated) {
+      this.props.history.push("/products");
+    }
   };
 
   componentDidUpdate(prevProps) {
@@ -54,13 +56,14 @@ class Login extends Component {
         <About />
 
         <div className="login-container">
+          {this.state.msg ? alert(`${this.state.msg}`) : null}
           <div className="logo-login">
             <img src={logo} alt="logo" />
           </div>
 
           <form onSubmit={this.onSubmit} className="login-input" method="post">
             <input
-              name="email "
+              name="email"
               type="email"
               placeholder="Email"
               autoFocus={true}
@@ -70,7 +73,6 @@ class Login extends Component {
               name="password"
               type="password"
               placeholder="Password"
-              required="enabled"
               minLength="6"
               onChange={this.onChange}
             />

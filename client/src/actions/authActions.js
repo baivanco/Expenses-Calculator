@@ -91,7 +91,7 @@ export const login = ({ email, password }) => dispatch => {
   const body = JSON.stringify({ email, password });
 
   axios
-    .post("api/auth", body, config)
+    .post("http://127.0.0.1:5000/api/auth", body, config)
     .then(res =>
       dispatch({
         type: LOGIN_SUCCESS,
@@ -100,7 +100,7 @@ export const login = ({ email, password }) => dispatch => {
     )
     .catch(err => {
       dispatch(
-        returnErrors(err.response.data, err.reponse.status, "LOGIN_FAIL")
+        returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
       );
       dispatch({
         type: LOGIN_FAIL
