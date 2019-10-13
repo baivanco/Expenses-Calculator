@@ -3,7 +3,7 @@ Expensese Calculator application will be an application for adding products from
 
 Will have DB with products and Users - authorisation for Registered Users.
 
-**Installation and Setup Instructions :
+Installation and Setup Instructions :
 
 Clone down this repository. You will need node and npm installed globally on your machine. 
 
