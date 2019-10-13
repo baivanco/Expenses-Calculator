@@ -3,6 +3,13 @@ Expensese Calculator application will be an application for adding products from
 
 Will have DB with products and Users - authorisation for Registered Users.
 
+Installation and Setup Instructions :
+
+Clone down this repository. You will need node and npm installed globally on your machine. 
+
+In the project directory, you can run:
+npm run dev
+Runs the app in the development mode on port : 3000 
 
 
 
