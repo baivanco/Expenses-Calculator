@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import "./Expenses.css";
 import { Link } from "react-router-dom";
-
 import logo from "../../logo.svg";
-
 import axios from "axios";
-
 import userimg from "./userimg.svg";
+import { connect } from "react-redux";
+import { getProducts } from "../../actions/productActions";
 
 class Expenses extends Component {
   constructor(props) {
@@ -29,11 +28,7 @@ class Expenses extends Component {
   };
 
   componentDidMount() {
-    axios("http://127.0.0.1:5000/api/products")
-      .then(response => {
-        this.setState({ products: response.data });
-      })
-      .catch(err => console.log(err));
+    this.props.getProducts();
   }
 
   filterByYear = e => {
@@ -46,10 +41,12 @@ class Expenses extends Component {
   };
 
   render() {
+    const { products } = this.props.product;
+    const { user } = this.props.auth;
     var options = { year: "numeric", month: "short", day: "2-digit" };
     var total = 0;
-    for (let i in this.state.products) {
-      var price = this.state.products[i].product_price;
+    for (let i in products) {
+      var price = products[i].product_price;
       total += price;
     }
 
@@ -80,7 +77,10 @@ class Expenses extends Component {
             <span>Expenses</span>
           </div>
           <span className="user-products">
-            <img src={userimg} alt="userimg" /> Pero Perovski
+            <img src={userimg} alt="userimg" />{" "}
+            <strong>
+              {user ? ` ${user.first_name} ${user.last_name}` : ""}
+            </strong>
           </span>
         </nav>
         <span className="total-view">total spent : {total} MKD</span>
@@ -108,6 +108,7 @@ class Expenses extends Component {
           <label>Choose Year</label>
 
           <select onChange={this.filterByYear}>
+            <option value="2016">All</option>
             <option value="2016">2016</option>
             <option value="2017">2017</option>
             <option value="2018">2018</option>
@@ -145,7 +146,8 @@ class Expenses extends Component {
           </thead>
           <div className="table-line-border" />
           <tbody>
-            {this.state.products
+            {products
+
               .filter(p => {
                 var d = new Date(p.purchase_date);
                 return d.getFullYear() == this.state.fy;
@@ -178,4 +180,13 @@ class Expenses extends Component {
     );
   }
 }
-export default Expenses;
+
+const mapStateToProps = state => ({
+  product: state.product,
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { getProducts }
+)(Expenses);

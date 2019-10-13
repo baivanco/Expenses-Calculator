@@ -6,43 +6,62 @@ import {
   PRODUCTS_LOADING
 } from "../actions/types";
 import axios from "axios";
+import { tokenConfig } from "./authActions";
+import { returnErrors } from "./errorActions";
 
-export const getProducts = () => dispatch => {
+export const getProducts = () => (dispatch, getState) => {
   dispatch(setProductsLoading());
 
-  axios.get("http://127.0.0.1:5000/api/products/").then(res =>
-    dispatch({
-      type: GET_PRODUCTS,
-      payload: res.data
-    })
-  );
+  axios
+    .get("http://127.0.0.1:5000/api/products/", tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
-export const addProduct = product => dispatch => {
-  axios.post("http://127.0.0.1:5000/api/products/", product).then(res =>
-    dispatch({
-      type: ADD_PRODUCT,
-      payload: res.data
-    })
-  );
+export const addProduct = product => (dispatch, getState) => {
+  axios
+    .post("http://127.0.0.1:5000/api/products/", product, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: ADD_PRODUCT,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
-export const deleteProduct = id => dispatch => {
-  axios.delete(`http://127.0.0.1:5000/api/products/${id}`).then(res =>
-    dispatch({
-      type: DELETE_PRODUCT,
-      payload: id
-    })
-  );
+export const deleteProduct = id => (dispatch, getState) => {
+  axios
+    .delete(`http://127.0.0.1:5000/api/products/${id}`, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: DELETE_PRODUCT,
+        payload: id
+      })
+    )
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
-export const updateProduct = id => dispatch => {
-  axios.put(`http://127.0.0.1:5000/api/products/${id}`).then(res =>
-    dispatch({
-      type: UPDATE_PRODUCT,
-      payload: id
-    })
-  );
+export const updateProduct = id => (dispatch, getState) => {
+  axios
+    .put(`http://127.0.0.1:5000/api/products/${id}`, tokenConfig(getState))
+    .then(res =>
+      dispatch({
+        type: UPDATE_PRODUCT,
+        payload: id
+      })
+    );
 };
 
 export const setProductsLoading = () => {

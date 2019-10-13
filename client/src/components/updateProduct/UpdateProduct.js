@@ -4,6 +4,8 @@ import "./UpdateProduct.css";
 import userimg from "./userimg.svg";
 import logo from "../../logo.svg";
 import axios from "axios";
+import { connect } from "react-redux";
+import { getProducts, updateProduct } from "../../actions/productActions";
 
 class UpdateProduct extends Component {
   constructor(props) {
@@ -16,23 +18,14 @@ class UpdateProduct extends Component {
       product_price: ""
     };
   }
+
   componentDidMount() {
-    // axios
-    //   .get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
-    //   .then(response => {
-    //     this.setState({
-    //       product_name: response.data.product_name,
-    //       product_description: response.data.product_description,
-    //       product_type: response.data.product_type,
-    //       product_date: response.data.product_date,
-    //       product_price: response.data.product_price
-    //     });
-    //   });
-    this.FetchProductById();
+    this.props.getProducts();
   }
 
-  FetchProductById = () => {
-    // let options = { day: "numeric", month: "numeric", year: "numeric" };
+  FetchProductById = id => {
+    this.props.updateProduct(id);
+    let options = { day: "numeric", month: "numeric", year: "numeric" };
 
     axios
       .get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
@@ -81,6 +74,8 @@ class UpdateProduct extends Component {
   };
 
   render() {
+    const { products } = this.props.product;
+    const { user } = this.props.auth;
     return (
       <div>
         <div>
@@ -93,7 +88,10 @@ class UpdateProduct extends Component {
                 <span>Expenses</span>
               </Link>
               <span className="user-update-product">
-                <img src={userimg} alt="userimg" /> Pero Perovski
+                <img src={userimg} alt="userimg" />{" "}
+                <strong>
+                  {user ? `${user.first_name} ${user.last_name}` : ""}
+                </strong>
               </span>
             </nav>
             <h2>Edit Product</h2>
@@ -107,7 +105,7 @@ class UpdateProduct extends Component {
               <input
                 className="input-product-name"
                 type="text"
-                value={this.state.product_name}
+                value={products.product_name}
                 onChange={this.InputChangeHandler}
                 placeholder="Product Name"
                 required={true}
@@ -117,15 +115,16 @@ class UpdateProduct extends Component {
 
               <input
                 type="text"
-                value={this.state.product_description}
+                value={products.product_description}
                 onChange={this.InputChangeHandler}
+                placeholder="Product Description"
                 required={true}
                 name="product_description"
               />
               <br />
               <input
                 type="text"
-                value={this.state.product_type}
+                value={products.product_type}
                 onChange={this.InputChangeHandler}
                 placeholder="Product Type"
                 name="product_type"
@@ -134,7 +133,7 @@ class UpdateProduct extends Component {
               <input
                 type="date"
                 onChange={this.InputChangeHandler}
-                value={this.state.purchase_date}
+                value={products.purchase_date}
                 placeholder="Purschase Date"
                 name="purchase_date"
                 required={true}
@@ -142,7 +141,7 @@ class UpdateProduct extends Component {
               <br />
               <input
                 onChange={this.InputChangeHandler}
-                value={this.state.product_price}
+                value={products.product_price}
                 type="number"
                 placeholder="Product Price"
                 name="product_price"
@@ -160,4 +159,13 @@ class UpdateProduct extends Component {
     );
   }
 }
-export default UpdateProduct;
+
+const mapStateToProps = state => ({
+  product: state.product,
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { getProducts, updateProduct }
+)(UpdateProduct);

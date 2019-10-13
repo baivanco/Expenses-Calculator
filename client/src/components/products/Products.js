@@ -83,10 +83,16 @@ class Products extends Component {
 
   render() {
     const { products } = this.props.product;
+    const { user } = this.props.auth;
+
     var options = { year: "numeric", month: "short", day: "2-digit" };
+
     return (
       <div className="container-products-list">
-        <Logout />
+        <Link to="/">
+          <Logout />
+        </Link>
+
         <nav className="nav-bar-products">
           <img src={logo} alt="logo-img" style={{ width: "70px" }} />
           <div className="nav-bar-links">
@@ -126,7 +132,10 @@ class Products extends Component {
             ))}
           </div>
           <span className="user-products">
-            <img src={userimg} alt="userimg" /> Pero Perovski
+            <img src={userimg} alt="userimg" />{" "}
+            <strong>
+              {user ? `${user.first_name} ${user.last_name}` : ""}
+            </strong>
           </span>
         </nav>
         <Link to="/new_product">
@@ -229,7 +238,8 @@ class Products extends Component {
 }
 
 const mapStateToProps = state => ({
-  product: state.product
+  product: state.product,
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

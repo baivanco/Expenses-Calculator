@@ -56,7 +56,6 @@ class Login extends Component {
         <About />
 
         <div className="login-container">
-          {this.state.msg ? alert(`${this.state.msg}`) : null}
           <div className="logo-login">
             <img src={logo} alt="logo" />
           </div>
