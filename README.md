@@ -15,5 +15,7 @@ In the **Expenses-Calculator** directory run:
 
 Runs the app in the development mode on port : 3000 
 
+*This app is still in development mode*
+
 
 
