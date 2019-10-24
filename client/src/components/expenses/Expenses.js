@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./Expenses.css";
+import Logout from "../logout/Logout";
 import { Link } from "react-router-dom";
 import logo from "../../logo.svg";
-import axios from "axios";
+// import axios from "axios";
 import userimg from "./userimg.svg";
 import { connect } from "react-redux";
 import { getProducts } from "../../actions/productActions";
@@ -15,7 +16,7 @@ class Expenses extends Component {
       selectedFilterId: null,
       yearViewId: null,
       fy: "2019",
-      fm: "1"
+      fm: "12"
     };
   }
 
@@ -24,7 +25,7 @@ class Expenses extends Component {
   };
 
   yearView = id => {
-    this.setState({ yearViewId: id });
+    this.setState({ yearViewId: id, fm: "all" });
   };
 
   componentDidMount() {
@@ -37,10 +38,10 @@ class Expenses extends Component {
 
   filterByMonth = e => {
     this.setState({ fm: e.target.value });
-    console.log(this.state.fm);
   };
 
   render() {
+    console.log(this.state);
     const { products } = this.props.product;
     const { user } = this.props.auth;
     var options = { year: "numeric", month: "short", day: "2-digit" };
@@ -67,6 +68,9 @@ class Expenses extends Component {
 
     return (
       <div className="container-products-list">
+        <Link to="/">
+          <Logout />
+        </Link>
         <nav className="nav-bar-products">
           <img src={logo} alt="logo-img" style={{ width: "70px" }} />
           <div className="nav-bar-links">
@@ -108,7 +112,7 @@ class Expenses extends Component {
           <label>Choose Year</label>
 
           <select onChange={this.filterByYear}>
-            <option value="2016">All</option>
+            <option value="all">All</option>
             <option value="2016">2016</option>
             <option value="2017">2017</option>
             <option value="2018">2018</option>
@@ -118,18 +122,19 @@ class Expenses extends Component {
           <div style={hidden}>
             <label>Choose Month</label>
             <select onChange={this.filterByMonth}>
-              <option value="jan">January</option>
-              <option value="feb">February</option>
-              <option value="mar">March</option>
-              <option value="apr">April</option>
-              <option value="may">May</option>
-              <option value="jun">June</option>
-              <option value="jul">July</option>
-              <option value="aug">August</option>
-              <option value="sep">September</option>
-              <option value="oct">Octomber</option>
-              <option value="nov">November</option>
-              <option value="dec">December</option>
+              <option value="all">All</option>
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">Octomber</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
             </select>
           </div>
         </div>
@@ -152,6 +157,11 @@ class Expenses extends Component {
                 var d = new Date(p.purchase_date);
                 return d.getFullYear() == this.state.fy;
               })
+              .filter(m => {
+                var n = new Date(m.purchase_date);
+                return n.getMonth() == this.state.fm;
+              })
+
               .map(product => (
                 <tr key={product._id}>
                   <td

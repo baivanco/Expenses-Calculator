@@ -92,7 +92,6 @@ class Products extends Component {
         <Link to="/">
           <Logout />
         </Link>
-
         <nav className="nav-bar-products">
           <img src={logo} alt="logo-img" style={{ width: "70px" }} />
           <div className="nav-bar-links">
@@ -141,7 +140,6 @@ class Products extends Component {
         <Link to="/new_product">
           <button className="new-product-btn">new product</button>
         </Link>
-
         <table className="products-table">
           <thead>
             <tr className="prod-table-headers">
@@ -201,7 +199,6 @@ class Products extends Component {
             ))}
           </tbody>
         </table>
-
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}

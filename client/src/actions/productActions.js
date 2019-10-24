@@ -59,7 +59,7 @@ export const updateProduct = id => (dispatch, getState) => {
     .then(res =>
       dispatch({
         type: UPDATE_PRODUCT,
-        payload: id
+        payload: res.id
       })
     );
 };

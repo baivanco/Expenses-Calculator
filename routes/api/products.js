@@ -19,6 +19,7 @@ router.get("/:id", auth, (req, res) => {
 //@desc   Create New Product
 router.post("/", auth, (req, res) => {
   const {
+    product_user_id,
     product_name,
     product_type,
     product_description,
@@ -26,6 +27,7 @@ router.post("/", auth, (req, res) => {
     product_price
   } = req.body;
   const newProduct = new Product({
+    product_user_id: product_user_id,
     product_name: product_name,
     product_type: product_type,
     product_description: product_description,
@@ -47,7 +49,7 @@ router.delete("/:id", auth, (req, res) => {
 
 //@route  PUT api/products
 //@desc   Update Product
-router.put("/:id", auth, (req, res) => {
+router.put("/:id", (req, res) => {
   Product.findById(req.params.id, function(err, product) {
     if (!product) {
       res.status(404).send("product not found");

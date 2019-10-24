@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const ProductSchema = new Schema({
-  product_id: {
+  product_user_id: {
     type: String,
     require: true
   },

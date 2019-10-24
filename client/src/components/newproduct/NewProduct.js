@@ -11,6 +11,7 @@ class NewProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      product_user_id: "",
       product_name: "",
       product_description: "",
       product_type: "",
@@ -42,6 +43,7 @@ class NewProduct extends Component {
     e.preventDefault();
 
     const NewProduct = {
+      product_user_id: this.props.auth.user._id,
       product_name: this.state.product_name,
       product_description: this.state.product_description,
       product_type: this.state.product_type,

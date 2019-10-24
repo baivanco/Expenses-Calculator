@@ -6,10 +6,10 @@ import "./Logout.css";
 export class Logout extends Component {
   render() {
     return (
-      <div clasName="logout-container">
-        <a className="logout" onClick={this.props.logout} href="#">
+      <div className="logout-container">
+        <button className="logout" onClick={this.props.logout}>
           Logout
-        </a>
+        </button>
       </div>
     );
   }

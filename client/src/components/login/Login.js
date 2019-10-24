@@ -61,6 +61,13 @@ class Login extends Component {
           </div>
 
           <form onSubmit={this.onSubmit} className="login-input" method="post">
+            {this.state.msg != null ? (
+              <div>
+                <p className="user_pass_warning">
+                  Email/Password Incorrect, Please Try Again
+                </p>
+              </div>
+            ) : null}
             <input
               name="email"
               type="email"

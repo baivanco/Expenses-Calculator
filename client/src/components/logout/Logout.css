@@ -1,4 +1,9 @@
 .logout {
-  float: right;
+  position: absolute;
+  right: -75px;
   margin-top: 28px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
 }

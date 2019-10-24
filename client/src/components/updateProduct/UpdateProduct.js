@@ -19,9 +19,9 @@ class UpdateProduct extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getProducts();
-  }
+  // componentDidMount() {
+  //   this.props.getProducts();
+  // }
 
   FetchProductById = id => {
     this.props.updateProduct(id);
@@ -29,7 +29,9 @@ class UpdateProduct extends Component {
 
     axios
       .get("http://127.0.0.1:5000/api/products/" + this.props.match.params.id)
+
       .then(res => {
+        console.log(res);
         this.setState({
           product_name: res.data.product_name,
           product_description: res.data.product_description,
@@ -76,6 +78,7 @@ class UpdateProduct extends Component {
   render() {
     const { products } = this.props.product;
     const { user } = this.props.auth;
+    console.log(products);
     return (
       <div>
         <div>
