@@ -16,7 +16,7 @@ class Expenses extends Component {
       selectedFilterId: null,
       yearViewId: null,
       fy: "2019",
-      fm: "12"
+      fm: "11"
     };
   }
 
@@ -110,7 +110,6 @@ class Expenses extends Component {
           </button>
 
           <label>Choose Year</label>
-
           <select onChange={this.filterByYear}>
             <option value="all">All</option>
             <option value="2016">2016</option>
@@ -152,16 +151,14 @@ class Expenses extends Component {
           <div className="table-line-border" />
           <tbody>
             {products
-
               .filter(p => {
                 var d = new Date(p.purchase_date);
-                return d.getFullYear() == this.state.fy;
+                var m = new Date(p.purchase_date);
+                return (
+                  d.getFullYear() == this.state.fy,
+                  m.getMonth() == this.state.fm
+                );
               })
-              .filter(m => {
-                var n = new Date(m.purchase_date);
-                return n.getMonth() == this.state.fm;
-              })
-
               .map(product => (
                 <tr key={product._id}>
                   <td
